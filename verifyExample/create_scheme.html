@@ -1,0 +1,136 @@
+<!doctype html>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>create scheme</title>
+	<script type="text/javascript" src="elastos-wallet-api.js"></script>
+	<script type="text/javascript">
+	function creatScheme(){
+
+				// var type = document.schemef.stype.value;
+
+				var select = document.getElementById("secheme-select").value;
+				console.log("select:"+select);
+
+				var AppID = document.schemef.AppID.value;
+				
+				var CallbackUrl = document.schemef.CallbackUrl.value;
+				
+				var ReturnUrl = document.schemef.ReturnUrl.value;
+				
+				var RandomNumber = document.schemef.RandomNumber.value;
+
+				var AppName = document.schemef.AppName.value;
+
+				// var scheme = "elaphant://"+type+"?"+"AppID="+AppID+"&DID="+DID+"&PublicKey="+PublicKey+"&CallbackUrl="+encodeURIComponent(CallbackUrl)+"&ReturnUrl="+encodeURIComponent(ReturnUrl)+"&RandomNumber="+RandomNumber;
+				// console.log("scheme:" + scheme);
+
+				// var mnemonic = generateMnemonic();
+				var seed = getSeedFromMnemonic(mnemonic);
+				var mnemonic = document.schemef.Mnemonic.value;
+				console.log("mnemonic: " + mnemonic);
+				var priKey = getSinglePrivateKey(seed).toString('hex');
+				console.log("priKey: " + priKey);
+				var masterPubKey = getMasterPublicKey(seed);
+				var addressMaster = getAddress(new String(masterPubKey));
+				console.log("addressMaster: " + addressMaster);
+
+				var pubKey = getPublicKeyFromPrivateKey(priKey);
+				console.log("pubKey: " + pubKey);
+				var address = getAddress(new String(pubKey));
+				console.log("address: " + address);
+				var did = getDid(new String(pubKey));
+				console.log("did: " + did);
+
+				var sn = sign(AppID, priKey);
+				console.log("sn: " + sn);
+
+				document.schemef.PublicKey.value = pubKey;
+				document.schemef.DID.value = did;
+				document.schemef.ELAAddress.value = address;
+
+				var arr=new Array();
+				arr.push("elaphant://");
+				if(1 == select){
+					arr.push("identity");
+				} else {
+					arr.push("elapay");
+				}
+				arr.push("?");
+
+				//appid
+				arr.push("AppID=");
+				arr.push(AppID);
+				arr.push("&");
+
+				//did
+				arr.push("DID=");
+				arr.push(did);
+				arr.push("&");
+
+				//PublicKey
+				arr.push("PublicKey=");
+				arr.push(pubKey);
+				arr.push("&");
+
+				//Signature
+				arr.push("Signature=");
+				arr.push(sn);
+				arr.push("&");
+
+				//CallbackUrl
+				arr.push("CallbackUrl=");
+				arr.push(encodeURIComponent(CallbackUrl));
+				arr.push("&");
+
+				//ReturnUrl
+				arr.push("ReturnUrl=");
+				arr.push(encodeURIComponent(ReturnUrl));
+				arr.push("&");
+
+				//RandomNumber
+				arr.push("RandomNumber=");
+				arr.push(encodeURIComponent(RandomNumber));
+				arr.push("&");
+
+				//AppName
+				arr.push("AppName=");
+				arr.push(encodeURIComponent(AppName));
+				arr.push("&");
+
+				var str=arr.join("");
+
+				console.log("scheme:"+str);
+
+				var area = document.getElementById("scheme-area");
+				area.value = str;
+
+		}
+</script>
+</head>
+<body>
+
+ <select id="secheme-select">
+    <option value="1">identity</option>
+    <option value="2">elapay</option>
+  </select>
+
+<form name="schemef">
+	Mnemonic:<input type="text" name="Mnemonic"><br>
+	DID:<input type="text" name="DID"><br>
+	PublicKey:<input type="text" name="PublicKey"><br>
+	ELAAddress:<input type="text" name="ELAAddress"><br>
+	AppID:<input type="text" name="AppID"><br>
+	CallbackUrl:<input type="text" name="CallbackUrl"><br>
+	ReturnUrl:<input type="text" name="ReturnUrl"><br>
+	RandomNumber:<input type="text" name="RandomNumber"><br>
+	AppName:<input type="text" name="AppName"><br>
+</form>
+
+<textarea rows="10" cols="70" id="scheme-area">
+	scheme area
+</textarea><br>
+<button onclick="creatScheme()">create</button>
+
+</body>
+</html>

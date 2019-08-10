@@ -1,0 +1,54 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+    <title>author identity scheme</title>
+    <meta id="viewport" name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,minimal-ui">
+</head>
+<body>
+<div>
+    <a id="J-call-app" href="javascript:;" class="label">启动或下载elephant&gt;&gt;</a>
+    <input id="J-download-app" type="hidden" name="storeurl" value="http://app.51aiu.com/elastos/wallet-test/elephant_author_test.apk">
+</div>
+
+<script>
+            (function(){
+                var ua = navigator.userAgent.toLowerCase();
+                var t;
+                var config = {
+                    scheme_Adr: 'elephant://identity',
+                    download_url: document.getElementById('J-download-app').value,
+                    timeout: 600
+                };
+
+                function openclient() {
+                    try {
+                        console.log("open elephant wallet");
+                        var a = document.getElementById("J-call-app");
+                        a.href = 'elaphant://identity?CallbackUrl=http://localhost:8081/packet/grab/1509893100600982-0&Description=rket&AppID=cc053c61afc22dda9a309e96943c1734&SerialNumber=368F42311054A0B1FF35EF08F274E917417132734461A84F0D48C8864E356D26&PublicKey=028971D6DA990971ABF7E8338FA1A81E1342D0E0FD8C4D2A4DF68F776CA66EA0B1&Signature=90E8A60DC055C90F4765E91B6E4F07031F55CF7DD2DA4EF1EF55EA41D160CB48879F62D70EC8ED090E4CBBE013D21E7580C36CFA2173A997ADADB7255B23098F&Amount=0.011200&PaymentAddress=EdBndwMd3WsgqKRoZMPyAG5r9jMw4wJrTK&DID=ihKwfxiFpYme8mb11roShjjpZcHt1Ru5VB&CoinName=ELA&RandomNumber=123456&AppName=cket&RequestInfo=btcaddress,ethaddress,email,phonenumber,randomnumber&ReturnUrl=http://app.51aiu.com/elastos/wallet-test/verifyExample/verify.html';
+
+                        var t = setTimeout(function() {
+                            console.log("setTimeout");
+                            window.location = config.download_url;
+                        },"2000");
+
+                        window.onblur = function() {
+                            clearTimeout(t);
+                        }
+                    } catch(e) {
+                        console.log("exception: " + e.message);
+                    }
+                }
+                window.addEventListener("DOMContentLoaded", function(){
+                    document.getElementById("J-call-app").addEventListener('click',openclient,false);
+
+                }, false);
+            })()
+        </script>
+</body>
+</html>
