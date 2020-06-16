@@ -38,51 +38,51 @@
 
 <script>
 
-            function openBrowser() {
+
+            (function(){
+
                 var oAuthURL = "http://example.com/account/_oauth?redirect_url=" + "redirect_url";
-                var win = window.open(oAuthURL, 'SomeAuthentication', 'width=972,height=660,modal=yes,alwaysRaised=yes');
+                var win = window.open(oAuthURL, 'Authentication', 'width=972,height=660,modal=yes,alwaysRaised=yes');
 
                 var checkConnect = setInterval(function() {
                         if (!win || !win.closed) return;
                         clearInterval(checkConnect);
                         window.location.reload();
                     }, 100);
-            }
 
+                // var ua = navigator.userAgent.toLowerCase();
+                // var t;
+                // var config = {
+                //     /*scheme:必须*/
+                //     scheme_IOS: 'elephant://',
+                //     scheme_Adr: 'elephant://identity',
+                //     download_url: document.getElementById('J-download-app').value,
+                //     timeout: 600
+                // };
 
-            (function(){
-                var ua = navigator.userAgent.toLowerCase();
-                var t;
-                var config = {
-                    /*scheme:必须*/
-                    scheme_IOS: 'elephant://',
-                    scheme_Adr: 'elephant://identity',
-                    download_url: document.getElementById('J-download-app').value,
-                    timeout: 600
-                };
+                // function openclient() {
+                //     try {
+                //         console.log("open elephant wallet");
+                //         var a = document.getElementById("J-call-app");
+                //         a.href = 'elaphant://swft.elabank.net/swft.capsule';
 
-                function openclient() {
-                    try {
-                        console.log("open elephant wallet");
-                        var a = document.getElementById("J-call-app");
-                        a.href = 'elaphant://swft.elabank.net/swft.capsule';
+                //         var t = setTimeout(function() {
+                //             console.log("setTimeout");
+                //             window.location = config.download_url;
+                //         },"2000");
 
-                        var t = setTimeout(function() {
-                            console.log("setTimeout");
-                            window.location = config.download_url;
-                        },"2000");
+                //         window.onblur = function() {
+                //             clearTimeout(t);
+                //         }
+                //     } catch(e) {
+                //         console.log("exception: " + e.message);
+                //     }
+                // }
+                // window.addEventListener("DOMContentLoaded", function(){
+                //     document.getElementById("J-call-app").addEventListener('click',openclient,false);
 
-                        window.onblur = function() {
-                            clearTimeout(t);
-                        }
-                    } catch(e) {
-                        console.log("exception: " + e.message);
-                    }
-                }
-                window.addEventListener("DOMContentLoaded", function(){
-                    document.getElementById("J-call-app").addEventListener('click',openclient,false);
+                // }, false);
 
-                }, false);
             })()
         </script>
 </body>
