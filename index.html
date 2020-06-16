@@ -41,14 +41,19 @@
 
             (function(){
 
+                var win;
+                var checkConnect;
+                var $connect = $("#some_button");
                 var oAuthURL = "http://example.com/account/_oauth?redirect_url=" + "redirect_url";
-                var win = window.open(oAuthURL, 'Authentication', 'width=972,height=660,modal=yes,alwaysRaised=yes');
+                $connect.click(function() {
+                    win = window.open(oAuthURL, 'SomeAuthentication', 'width=972,height=660,modal=yes,alwaysRaised=yes');
+                });
 
-                var checkConnect = setInterval(function() {
-                        if (!win || !win.closed) return;
-                        clearInterval(checkConnect);
-                        window.location.reload();
-                    }, 100);
+                checkConnect = setInterval(function() {
+                    if (!win || !win.closed) return;
+                    clearInterval(checkConnect);
+                    window.location.reload();
+                }, 100);
 
                 // var ua = navigator.userAgent.toLowerCase();
                 // var t;
