@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Authorize test</title>
+</head>
+<body>
+	<script type="text/javascript">
+		
+	(function(){
+			var win;
+			var url = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=afd3d647-a8b7-4723-bf9d-1b832f43b881&scope=Files.ReadWrite.AppFolder%20offline_access&response_type=code&redirect_uri=http://localhost:12345";
+
+			win = window.open(url, 'Authorize', 'width=972,height=660,modal=yes,alwaysRaised=yes');
+
+			if(win) {
+				parent.close();
+			}
+
+	})()
+
+	</script>
+</body>
+</html>
