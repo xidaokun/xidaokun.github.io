@@ -59,8 +59,49 @@
         
             <blockquote>这篇文章上次修改于 798 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
         
-            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>数据结构讨论第一章，包括：<br>数组，链表，栈，队列，散列表。</p>
-<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><h3 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h3>
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>数据结构讨论第一章，包括：数组，链表，栈，队列，哈希表。</p>
+<h3 id="数组-array"><a href="#数组-array" class="headerlink" title="数组(array)"></a>数组(array)</h3><p>数组存储在连续的内存空间内，且元素类型相同。这种做法包含丰富的先验信息，系统可以利用这些信息来优化数据结构的操作效率。</p>
+<img src="/2022/01/05/Data-Struct-1/struct_array.png" class="" title="struct array">
+<p>优点：</p>
+<ul>
+<li>空间效率高：数组为数据分配了连续的内存块，无须额外的结构开销。</li>
+<li>支持随机访问：数组允许在 时间内访问任何元素。</li>
+<li>缓存局部性：当访问数组元素时，计算机不仅会加载它，还会缓存其周围的其他数据，从而借助高速缓存来提升后续操作的执行速度。<br>局限：</li>
+<li>插入与删除效率低：当数组中元素较多时，插入与删除操作需要移动大量的元素。</li>
+<li>长度不可变：数组在初始化后长度就固定了，扩容数组需要将所有数据复制到新数组，开销很大。</li>
+<li>空间浪费：如果数组分配的大小超过实际所需，那么多余的空间就被浪费了。</li>
+</ul>
+<h3 id="链表-linked-list"><a href="#链表-linked-list" class="headerlink" title="链表(linked list)"></a>链表(linked list)</h3><p>常见的链表类型包括三种:</p>
+<ul>
+<li>单向链表：即前面介绍的普通链表。单向链表的节点包含值和指向下一节点的引用两项数据。我们将首个节点称为头节点，将最后一个节点称为尾节点，尾节点指向空 None 。</li>
+<li>环形链表：如果我们令单向链表的尾节点指向头节点（首尾相接），则得到一个环形链表。在环形链表中，任意节点都可以视作头节点。</li>
+<li>双向链表：与单向链表相比，双向链表记录了两个方向的引用。双向链表的节点定义同时包含指向后继节点（下一个节点）和前驱节点（上一个节点）的引用（指针）。相较于单向链表，双向链表更具灵活性，可以朝两个方向遍历链表，但相应地也需要占用更多的内存空间。<img src="/2022/01/05/Data-Struct-1/struct_link_list.png" class="" title="link list"></li>
+</ul>
+<h3 id="栈-stack"><a href="#栈-stack" class="headerlink" title="栈(stack)"></a>栈(stack)</h3><p>栈是一种遵循先入后出逻辑的线性数据结构。</p>
+<img src="/2022/01/05/Data-Struct-1/struct_stack.png" class="" title="link list">
+<p>操作：<br>push，元素入栈到栈顶，时间复杂度O(1)。<br>pop，栈顶元素出栈，时间复杂度O(1)。<br>peek，访问栈顶元素，时间复杂度O(1)。</p>
+<h3 id="队列-queue"><a href="#队列-queue" class="headerlink" title="队列(queue)"></a>队列(queue)</h3><p>队列是一种遵循先入先出规则的线性数据结构。顾名思义，队列模拟了排队现象，即新来的人不断加入队列尾部，而位于队列头部的人逐个离开。</p>
+<img src="/2022/01/05/Data-Struct-1/struct_queue.png" class="" title="queue list">
+<p>操作：<br>push，元素入队，即将元素添加至队尾，时间复杂度O(1)。<br>pop，队首元素出队，时间复杂度O(1)。<br>peek，访问队首元素，时间复杂度O(1)。</p>
+<h3 id="双向队列-double-ended-queue"><a href="#双向队列-double-ended-queue" class="headerlink" title="双向队列(double-ended queue)"></a>双向队列(double-ended queue)</h3><p>双向队列提供了更高的灵活性，允许在头部和尾部执行元素的添加或删除操作;双向队列的实现与队列类似，可以选择链表或数组作为底层数据结构。</p>
+<img src="/2022/01/05/Data-Struct-1/struct_double_queue.png" class="" title="queue list">
+<p>操作：<br>push_first，将元素添加至队首，时间复杂度O(1)。<br>push_last，将元素添加至队尾，时间复杂度O(1)。<br>pop_first，删除队首元素，时间复杂度O(1)。<br>pop_last，删除队尾元素，时间复杂度O(1)。<br>peek_first，访问队首元素，时间复杂度O(1)。<br>peek_last，访问队尾元素，时间复杂度O(1)。</p>
+<h3 id="哈希表-hash-table"><a href="#哈希表-hash-table" class="headerlink" title="哈希表(hash table)"></a>哈希表(hash table)</h3><p>哈希表，又称散列表，它通过建立键key与值value之间的映射，实现高效的元素查询。具体而言，我们向哈希表中输入一个键key，则可以在时间内获取对应的值value。</p>
+<img src="/2022/01/05/Data-Struct-1/struct_hash_table.png" class="" title="hash table">
+<p>1，实现</p>
+<img src="/2022/01/05/Data-Struct-1/struct_hash_imp.png" class="" title="hash table implement">
+<p>2，哈希冲突<br>常情况下哈希函数的输入空间远大于输出空间，因此理论上哈希冲突是不可避免的。我们通过下面两个策略来解决冲突：</p>
+<ul>
+<li>改良哈希表数据结构，使得哈希表可以在出现哈希冲突时正常工作。</li>
+<li>仅在必要时，即当哈希冲突比较严重时，才执行扩容操作。</li>
+</ul>
+<p>哈希表的结构改良方法主要包括“链式地址法”和“开放寻址法”。</p>
+<p>3，链式地址(separate chaining)法<br>在原始哈希表中，每个桶仅能存储一个键值对。「链式地址 separate chaining」将单个元素转换为链表，将键值对作为链表节点，将所有发生冲突的键值对都存储在同一链表中。</p>
+<img src="/2022/01/05/Data-Struct-1/hash_table_link_addr.png" class="" title="hash table implement">
+<p>查询元素，输入 key ，经过哈希函数得到桶索引，即可访问链表头节点，然后遍历链表并对比key以查找目标键值对。<br>添加元素，首先通过哈希函数访问链表头节点，然后将节点（键值对）添加到链表中。<br>删除元素，根据哈希函数的结果访问链表头部，接着遍历链表以查找目标节点并将其删除。<br>局限：<br>占用空间增大，链表包含节点指针，它相比数组更加耗费内存空间。<br>查询效率降低，因为需要线性遍历链表来查找对应元素。</p>
+<p>当链表很长时，查询效率很差。此时可以将链表转换为“AVL 树”或“红黑树”，从而将查询操作的时间复杂度优化至。</p>
+<p>4，开发寻址(open addressing)法<br>开放寻址不引入额外的数据结构，而是通过“多次探测”来处理哈希冲突，探测方式主要包括线性探测、平方探测和多次哈希等。</p>
+
         </article>
         <section class="post-near">
             <ul>
@@ -74,7 +115,7 @@
         </section>
         
             <section class="post-tags">
-            <a class="-none-link" href="/tags/IT-Basics/" rel="tag">IT-Basics</a>
+            <a class="-none-link" href="/tags/Algorithm/" rel="tag">Algorithm</a><a class="-none-link" href="/tags/IT-Basics/" rel="tag">IT-Basics</a>
             </section>
         
     
@@ -110,7 +151,7 @@
                 </div>
                 <div class="col-m-4">
                     <h3 class="title-tags">标签云：</h3>
-                    <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Backend/" style="font-size: 10px;">Backend</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/IT-Basics/" style="font-size: 20px;">IT-Basics</a> <a href="/tags/OS/" style="font-size: 16.67px;">OS</a> <a href="/tags/Tool/" style="font-size: 13.33px;">Tool</a>
+                    <a href="/tags/Algorithm/" style="font-size: 17.5px;">Algorithm</a> <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Backend/" style="font-size: 10px;">Backend</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/IT-Basics/" style="font-size: 20px;">IT-Basics</a> <a href="/tags/OS/" style="font-size: 15px;">OS</a> <a href="/tags/Tool/" style="font-size: 12.5px;">Tool</a>
                 </div>
             </div>
         </section>
