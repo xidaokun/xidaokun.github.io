@@ -3,7 +3,7 @@
   <head>
      
     <meta charset="UTF-8">
-    <title>Blockchain wallet - xidaokun</title>
+    <title>Data Struct 3 - xidaokun</title>
     <link rel="shortcut icon" href="/static/img/icon.png">
     <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
     
@@ -15,7 +15,7 @@
 
     <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
     <meta property="og:site_name" content="xidaokun">
-    <meta property="og:title" content="Blockchain wallet"/>
+    <meta property="og:title" content="Data Struct 3"/>
     
 <meta name="generator" content="Hexo 7.1.1"></head>
 
@@ -49,34 +49,53 @@
     <main>
     <div class="wrap min">
         <section class="post-title">
-            <h2>Blockchain wallet</h2>
+            <h2>Data Struct 3</h2>
             <div class="post-meta">
-                <time class="date">2019.07.18</time>
+                <time class="date">2022.01.09</time>
             
             </div>
         </section>
         <article class="post-content">
         
-            <blockquote>这篇文章上次修改于 1702 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
+            <blockquote>这篇文章上次修改于 795 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
         
-            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>一款支持多币种，多账户的区块链HD钱包，项目开源。</p>
-<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p>1，简捷的支付方式<br>2，支持BTC, BCH, ETH和所有ERC-20 tokens<br>3，简捷的密钥备份<br>4，安全的密钥存储<br>5，支持众多Dapp</p>
-<h3 id="开发-部署"><a href="#开发-部署" class="headerlink" title="开发&amp;部署"></a>开发&amp;部署</h3><p>1，Download and install Java 7 or up<br>2，Download and Install the latest Android studio<br>3，Download and install the latest NDK <a target="_blank" rel="noopener" href="https://developer.android.com/ndk/downloads/index.html">https://developer.android.com/ndk/downloads/index.html</a> or download it in android studio by “choosing the NDK” and press “download”(Ndk Version must be 16)<br>4，Go to <a target="_blank" rel="noopener" href="https://github.com/xidaokun/Elastos.App.Wallet.Elephant.Android">https://github.com/xidaokun/Elastos.App.Wallet.Elephant.Android</a><br>5，Open the project with Android Studio and let the project sync<br>6，Go to SDK Manager and download all the SDK Platforms and SDK Tools<br>7，Build -&gt; Rebuild Project</p>
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>数据结构第二章，讨论图。</p>
+<h3 id="图"><a href="#图" class="headerlink" title="图"></a>图</h3><p>图(Graph)是由顶点的有穷非空集合和顶点之间边的集合组成，通常表示为: G(V,E)，其中，G表示一个图，V是图G中顶点的集合，E是图G中边的集合。</p>
+<ul>
+<li>顶点的度(Degree)<br>顶点的度是指在图中与Vi相关联的边的条数。对于有向图来说，有入度(In-degree)和出度(Out-degree)之分，有向图顶点的度等于该顶点的入度和出度之和。</li>
+<li>邻接<br>若无向图中的两个顶点V1和V2存在一条边(V1,V2)，则称顶点V1和V2邻接(Adjacent)；若有向图中存在一条边&lt;V3,V2&gt;，则称顶点V3与顶点V2邻接，且是V3邻接到V2或V2邻接直V3；</li>
+<li>路径(Path)<br>在无向图中，若从顶点Vi出发有一组边可到达顶点Vj，则称顶点Vi到顶点Vj的顶点序列为从顶点Vi到顶点Vj的路径。</li>
+<li>连通(Connected)<br>若从Vi到Vj有路径可通，则称顶点Vi和顶点Vj是连通的。</li>
+<li>权(Weight)<br>有些图的边或弧具有与它相关的数字，这种与图的边或弧相关的数叫做权。</li>
+</ul>
+<h3 id="邻接矩阵-Adjacency-Matrix-表示法"><a href="#邻接矩阵-Adjacency-Matrix-表示法" class="headerlink" title="邻接矩阵(Adjacency Matrix)表示法"></a>邻接矩阵(Adjacency Matrix)表示法</h3><p>图的邻接矩阵表示法是用两个数组来表示图。一个一维数组存储图中顶点信息，一个二维数组(称为邻接矩阵)存储图中的边或弧的信息。</p>
+<h3 id="无向图-Undirected-graphs"><a href="#无向图-Undirected-graphs" class="headerlink" title="无向图(Undirected graphs)"></a>无向图(Undirected graphs)</h3><p>如果图中任意两个顶点之间的边都是无向边(简而言之就是没有方向的边)，则称该图为无向图。<br>无向图中的边使用小括号“()”表示; 比如 (V1,V2);</p>
+<p>邻接矩阵表示法：</p>
+<img src="/2022/01/09/Data-Struct-3/struct_undirected_graphs.png" class="" title="undirected graphs">
+
+<h3 id="有向图-Directed-graphs"><a href="#有向图-Directed-graphs" class="headerlink" title="有向图(Directed graphs)"></a>有向图(Directed graphs)</h3><p>如果图中任意两个顶点之间的边都是有向边(简而言之就是有方向的边)，则称该图为有向图。<br>有向图中的边使用尖括号“&lt;&gt;”表示; 比如&lt;V1,V2&gt;。</p>
+<p>邻接矩阵表示法：</p>
+<img src="/2022/01/09/Data-Struct-3/struct_directed_graphs.png" class="" title="directed graphs">
+
+<h3 id="完全图-Complete-graphs"><a href="#完全图-Complete-graphs" class="headerlink" title="完全图(Complete graphs)"></a>完全图(Complete graphs)</h3><ul>
+<li>无向完全图， 在无向图中，如果任意两个顶点之间都存在边，则称该图为无向完全图。</li>
+<li>有向完全图，在有向图中，如果任意两个顶点之间都存在方向互为相反的两条弧，则称该图为有向完全图。</li>
+</ul>
 
         </article>
         <section class="post-near">
             <ul>
                 
-                    <li>上一篇: <a href="/2020/08/15/AOSP-Build/">AOSP Build</a></li>
+                    <li>上一篇: <a href="/2022/01/17/Algorithm-1/">Algorithm 1</a></li>
                 
                 
-                    <li>下一篇: 看完啦 (つд⊂)</li>
+                    <li>下一篇: <a href="/2022/01/08/Data-Struct-2/">Data Struct 2</a></li>
                 
             </ul>
         </section>
         
             <section class="post-tags">
-            <a class="-none-link" href="/tags/Android/" rel="tag">Android</a><a class="-none-link" href="/tags/Blockchain/" rel="tag">Blockchain</a>
+            <a class="-none-link" href="/tags/Algorithm/" rel="tag">Algorithm</a><a class="-none-link" href="/tags/IT-Basics/" rel="tag">IT-Basics</a>
             </section>
         
     
