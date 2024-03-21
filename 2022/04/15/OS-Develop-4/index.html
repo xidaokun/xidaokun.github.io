@@ -57,7 +57,7 @@
         </section>
         <article class="post-content">
         
-            <blockquote>这篇文章上次修改于 704 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
+            <blockquote>这篇文章上次修改于 706 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
         
             <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>本章讨论MBR。<br>MBR被写在硬盘的0盘0道1扇区。MBR大小是512字节，这是为了保证0x55和0xaa这两个魔术恰好出现在该扇区的最后两个字节。MBR受限于512字节大小限制，没法完成初始化环境和加载内核的任务，所以我们需要另外一个程序来继续完成这两项任务，即loader。</p>
 <h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs nasm">SECTION MBR vstart=0x7c00         <br>mov ax,cs      <br>mov ds,ax<br>mov es,ax<br>mov ss,ax<br>mov fs,ax<br>mov sp,0x7c00<br><br><br>mov ax, 0x600<br>mov bx, 0x700<br>mov cx, 0<br>mov dx, 0x184f<br>int 0x10<br><br><br>mov ah, 3<br>mov bh, 0<br>int x010<br><br>mov ax, message<br>mov bp, ax<br>mov cx, 5<br>mov ax, 0x1301<br>mov bx, 0x2<br>int 0x10<br><br>jmp $<br><br>message db &quot;1 MBR&quot;<br>times 510-($-$$) db 0<br>db 0x55, 0xaa<br></code></pre></td></tr></table></figure>
