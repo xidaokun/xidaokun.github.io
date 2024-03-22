@@ -60,8 +60,29 @@
             <blockquote>这篇文章上次修改于 562 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
         
             <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>本章讨论线程。</p>
-<h3 id="线程本质"><a href="#线程本质" class="headerlink" title="线程本质"></a>线程本质</h3><p>线程本质是由调度器调度，作为执行流在CPU上执行的代码块。</p>
-<h3 id="线程实现"><a href="#线程实现" class="headerlink" title="线程实现"></a>线程实现</h3><h3 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h3><p>1，时钟中断处理函数<br>2，实现调度器schedule<br>3，实现任务切换函数</p>
+<h3 id="线程本质"><a href="#线程本质" class="headerlink" title="线程本质"></a>线程本质</h3><p>线程本质是由调度器调度，作为执行流在CPU上执行的代码块。线程的意义在于抢时间片提高进程运行速度和避免阻塞。</p>
+<h3 id="轻量级进程"><a href="#轻量级进程" class="headerlink" title="轻量级进程"></a>轻量级进程</h3><p>进程和线程都是执行流，不过相对于进程而言，线程没有自己的地址空间，需要依赖进程而活，所以又被称作“轻量级进程”。它们都具备独立寄存器资源和独立的栈空间，因此线程也可以像进程那样调用其他函数。</p>
+<h3 id="PCB-Process-Control-Block"><a href="#PCB-Process-Control-Block" class="headerlink" title="PCB(Process Control Block)"></a>PCB(Process Control Block)</h3><p>记录进程和线程信息的数据结构，基本内容包括：</p>
+<ul>
+<li>寄存器映像</li>
+<li>栈</li>
+<li>栈指针</li>
+<li>pid</li>
+<li>进程状态</li>
+<li>优先级</li>
+<li>时间片</li>
+<li>打开的文件描述符</li>
+<li>父进程</li>
+</ul>
+<h3 id="状态机"><a href="#状态机" class="headerlink" title="状态机"></a>状态机</h3><p>OS把线程不同执行阶段划分为不同的状态，在特定条件下，不同状态间可以转移。状态的定义主要是给调度器来使用的。</p>
+<img src="/2022/09/07/OS-Develop-8/thread_state.png" class="" title="cpu workflow">
+
+
+<h3 id="线程实现"><a href="#线程实现" class="headerlink" title="线程实现"></a>线程实现</h3><ul>
+<li>分配1页(4KB)的内存</li>
+</ul>
+<h3 id="线程调度"><a href="#线程调度" class="headerlink" title="线程调度"></a>线程调度</h3><p>1，时钟中断处理函数<br>2，实现调度器schedule<br>3，实现任务切换函数</p>
+<h3 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h3><p>由于同一进程中的线程共享资源，会存在资源竞争，引发线程安全问题。</p>
 <h3 id="阻塞和唤醒"><a href="#阻塞和唤醒" class="headerlink" title="阻塞和唤醒"></a>阻塞和唤醒</h3><h3 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h3>
         </article>
         <section class="post-near">
@@ -104,15 +125,15 @@
             <div class="row">
                 <div class="col-m-4">
                     <h3 class="title-recent">最新文章：</h3>
-                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2023/01/08/PKI-2/">PKI 2</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/01/07/PKI-1/">PKI 1</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/10/05/Backend-Node/">Backend Node</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/09/07/OS-Develop-8/">OS Develop 8</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/07/18/OS-Develop-7/">OS Develop 7</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/06/07/OS-Develop-6/">OS Develop 6</a></li></ul>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2023/01/08/PKI-2/">PKI 2</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/01/07/PKI-1/">PKI 1</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/11/05/OS-Develop-9/">OS Develop 9</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/10/05/Backend-Node/">Backend Node</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/09/07/OS-Develop-8/">OS Develop 8</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/07/18/OS-Develop-7/">OS Develop 7</a></li></ul>
                 </div>
                 <div class="col-m-4">
                     <h3 class="title-date">时光机：</h3>
-                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
                 </div>
                 <div class="col-m-4">
                     <h3 class="title-tags">标签云：</h3>
-                    <a href="/tags/Algorithm/" style="font-size: 18px;">Algorithm</a> <a href="/tags/Android/" style="font-size: 14px;">Android</a> <a href="/tags/Architecture/" style="font-size: 12px;">Architecture</a> <a href="/tags/Backend/" style="font-size: 10px;">Backend</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/IT-Basics/" style="font-size: 20px;">IT-Basics</a> <a href="/tags/JVM/" style="font-size: 16px;">JVM</a> <a href="/tags/Java/" style="font-size: 16px;">Java</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/OS/" style="font-size: 18px;">OS</a> <a href="/tags/Security/" style="font-size: 14px;">Security</a> <a href="/tags/Tool/" style="font-size: 12px;">Tool</a>
+                    <a href="/tags/Algorithm/" style="font-size: 16.67px;">Algorithm</a> <a href="/tags/Android/" style="font-size: 13.33px;">Android</a> <a href="/tags/Architecture/" style="font-size: 11.67px;">Architecture</a> <a href="/tags/Backend/" style="font-size: 10px;">Backend</a> <a href="/tags/Blockchain/" style="font-size: 10px;">Blockchain</a> <a href="/tags/IT-Basics/" style="font-size: 20px;">IT-Basics</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/OS/" style="font-size: 18.33px;">OS</a> <a href="/tags/Security/" style="font-size: 13.33px;">Security</a> <a href="/tags/Tool/" style="font-size: 11.67px;">Tool</a>
                 </div>
             </div>
         </section>
