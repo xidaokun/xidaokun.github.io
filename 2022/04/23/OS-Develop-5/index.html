@@ -57,7 +57,7 @@
         </section>
         <article class="post-content">
         
-            <blockquote>这篇文章上次修改于 781 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
+            <blockquote>这篇文章上次修改于 784 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
         
             <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>本章讨论Loader。<br>MBR被写在硬盘的0盘0道2扇区；MBR会从该扇区读取loader.bin，然后将它加载到0x900地址处。同时在loader中，要设置vstart&#x3D;0x900，以便MBR在加载完成后，可以jmp到0x900来执行loader。<br>接下来，loader会依次做如下工作：</p>
 <ul>
