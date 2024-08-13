@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>blockchain-01 - xidaokun</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="xidaokun">
+    <meta property="og:title" content="blockchain-01"/>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>xidaokun</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                
+            </div>
+        </div>
+        
+            <a target="_blank" rel="noopener" href="https://github.com/xidaokun">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>blockchain-01</h2>
+            <div class="post-meta">
+                <time class="date">2024.08.13</time>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>区块链连连问。</p>
+<h3 id="问"><a href="#问" class="headerlink" title="问"></a>问</h3><ul>
+<li><p>什么是区块链<br> 区块链本质上是一个应用了密码学技术的，多方参与、共同维护、持续增长且不可篡改的 分布式数据库系统，也称为分布式共享账本。在数据上传的过程中，数据会被打包到一起 形成一个个数据块，而被打包好的数据块又有另一个学名叫做区块，将每个区块按照时间 顺序连在一起，就形成了链式的网络，因为整个网络结构时由区块和链构成的，所以就给 他取名叫 Blockchain。作为共享账本，就可理解为，每一个账页就是一个区块，每一个区 块写满了交易记录，区块首尾衔接，紧密相连，形成链状结构。 所以，区块链用一种去中心化的方式，解决了信任背书和价值传递的问题。</p>
+</li>
+<li><p>区块链特点<br>区块链的特点：匿名性、可扩展性、开放性，不可撤销、不可篡改和加密安全性。 区块链是透明共享的总帐本，这帐本在全网公开，你拿到它的公钥，你就知道它帐里面到 底是有多少钱，所以任何一次的价值转换，全世界有兴趣的人都能在旁边看着你，转换是 由矿工来帮你确认的，所以它是一个互联网共识机制。这个帐本是没有办法篡改的，因为账本记录是去中心化的，不是由个人或中心化服务器来记录的。</p>
+</li>
+<li><p>什么是点对点传输<br>对点技术（peer-to-peer，简称 P2P）又称对等互联网络技术，网络中不存在中心节点，各 个节点间的权利都是相同的，任意两个点之间都可以进行交易，交易成功后全网所有节点都会记录这个交易，这种模式的好处是不把依赖都聚集在较少的几台服务器上。</p>
+</li>
+<li><p>什么是区块链节点<br>负责维护网络运行的终端就可以称之为——节点。区块链是去中心化的分布式数据库，他不依托于哪一个中心化的服务器，而是由千千万万个“小服务器”组成。只要我们下载一个区块链客户端，我们就变成了那千千万万个“小服务 器”中的一员。 节点分为“全节点”和“轻节点”，全节点就是拥有全网所有的交易数据的节点，那么轻节点 就是只拥有和自己相关的交易数据节点。节点分布越多、越广泛，区块链网络就更加的去 中心化，网络运行也就越安全稳定。</p>
+</li>
+<li><p>什么是区块链高度<br>特币网络大概每10分钟生产一个记录交易的区块。而比特币区块高度，就是指生成到第多少个区块。</p>
+</li>
+</ul>
+<p>区块高度（Block Height）是指在区块链网络中，每个区块的相对位置或序号。创世块通常是第一个区块，其区块高度为0。随着时间的推移，新的区块不断被添加到区块链中，每个区块都有一个唯一的高度。因此，区块高度是表示区块在整个区块链中的顺序的一个重要指标。</p>
+<ul>
+<li><p>什么是智能合约<br>在区块链领域中，智能合约本质可以说是一段运行在区块链网络 中的代码，它以计算机指令的方式实现了传统合约的自动化处理，完成用户所赋予的业务 逻辑。</p>
+</li>
+<li><p>什么是共识机制<br>共识机制就是所有记账节点之间怎么达成共识，去认定一个记录的有效性，这既是认定的手段，也是防止篡改的手段。区块链提出了四种不同的共识机制，适用于不同的应用场景 ，在效率和安全性之间取得平衡。 区块链的共识机制具备“少数服从多数”以及“人人平等”的特点，其中“少数服从多数”并不完 全指节点个数，也可以是计算能力、股权数或者其他的计算机可以比较的特征量。“人人平 等”是当节点满足条件时，所有节点都有权优先提出共识结果、直接被其他节点认同后并最 后有可能成为最终共识结果</p>
+</li>
+<li><p>什么是隔离见证<br>通常简写为 SegWit，是区块链的一种扩容方式。 目前区块链上每个区块内不仅记录了每笔转账交易的具体信息，即在哪个时间点账户收到 或转出多少比特币，还包含了每笔交易的数字签名，且数字签名占比较大。矿工在打包区 块的时候需要用数字签名一一验证每笔交易，确认没有问题之后才会将该笔交易记录在区 块里。隔离见证就是把区块内的数字签名信息拿出去，让每个区块可以承载更多笔交易， 从而达到扩容的目的。”</p>
+</li>
+<li><p>什么是代币<br>在区块链领域可看作是一种可流通的加密数字权益证明。</p>
+</li>
+<li><p>什么是挖矿<br>挖矿，就是利用硬件进行一个与随机数相关的计算，得出答案后以此换取相应的数字货币 作为奖励。 此前挖矿是利用计算机进行相关的计算来获取数字货币奖励，但随着算力的不断增加，使 用计算机挖矿的成本越来越高。后出现了专门获取数字货币的机器，这种机器也就是所谓 的矿机</p>
+</li>
+<li><p>什么是钱包，公钥，私钥和地址<br>加密数字货币钱包能提供钱包地址的创建、加密数字货币转账、每个钱包地址交易历史的 查询等基础金融功能。 钱包一般分为冷钱包和热钱包，主要区别是互联网是否能访问到秘钥。 每个钱包地址都对应着一个公钥和一个私钥。私钥只有用户可以拥有，而公钥可公开发行配送。</p>
+</li>
+<li><p>什么是区块链扩容<br>当初为了保证比特币的安全性及稳定性，中本聪将区块的大小限制在 1MB。然而随着区块 链上交易数不断增长，每秒 7 笔交易的处理速度已经明显无法满足用户需求。所以便通过 修改比特币底层代码的方式，达到提高交易处理能力的目的。 目前比特币扩容有两种技术方案：1、通过改变区块链共识部分的内容，使区块容量变大。 2、把大量的计算移到链下，即通过侧链的技术加以解决问题。</p>
+</li>
+<li><p>现在有哪些主流的区块链技术<br>1， 比特币(Bitcoin)，是最早的真正意义的去中心化区块链技术。<br>2，以太坊（Ethereum），配备了强大的图灵完备的智能合约虚拟机，因此可以成为一切区块 链项目的母平台。<br>3，IBM HyperLedger fabric，是联盟链的优秀实现。<br>4，Ripple，世界上第一个开放的支付网络，是基于区块连的点到点全球支付网络</p>
+</li>
+<li><p>区块链由哪些结构组成<br>区块链是由区块相互连接形成的链式存储结构，区块就是链式存储结构中的数据元素，其 中第一个区块被称为创始区块。 一般区块包括区块头和区块体两部分。区块头包含每个区块的身份识别信息，如版本号、 hash 值、时间戳、区块高度等信息；区块体主要包含具体的交易数据。</p>
+</li>
+<li><p>节点有哪几种方式<br>区块链采用分布式存储的方式，区块链的数据是由区块链节点使用和存储的，而多个节点 通过网络进行链接最终形成了完整的区块链网络。 关于节点的大小，以比特币网络节点为例，有完整节点 (Full node)、修剪节点 (Pruning node)、SPV 轻量节点 (Lightweight node)之分，这种分类方式基于两点差异：一是这个节点 是否下载了最新最完整的比特币区块链；二是该节点能否独立验证比特币的转账交易，即 能否独立实现作为一个节点的基本功能。 完整节点下载了最新的完整区块链数据，是比特币网络的主心骨。使用此类节点的主要包 括两类人，一是独立挖矿的矿工，二是使用默认设置运行比特币软件 (Bitcoin core) 的用户 。修剪节点同样可以独立完成比特币转账的确认，但是它并没把整个区块链都下载到本地。 轻量节点一般使用在移动计算设备上，由于容量限制以及对于便携性的高要求，人们通常 不会下载区块链到本地。因此，钱包的运营者会通过 SPV (Simple payment verification) 协议 ，将每个用户钱包中的转账与网上的完整区块链进行核对与确认。 在以太坊网络中，也有类似的全节点、轻节点、归档节点之分，所以并不是每个节点都需 要巨大的存储空间 ，要根据节点功能来选择。</p>
+</li>
+<li><p>密码学在区块链中的应用<br>在区块链技术中，密码学机制主要被用于确保交易信息的完整性、真实性和隐私性。 区块链中的密码学 包括布隆过滤器，哈希函数、加解密算法，数字证书与数字签名，同态 加密，PKI 体系等。</p>
+</li>
+<li><p>区块链为什么能防篡改<br>由于区块链块链结构，区块之间相互串成一条链条，如果想篡改数据，只篡改一个节点并 没有用，需要同时篡改整条链上的节点才可以真正篡改数据，这种篡改难度极高，几乎不 可能完成。区块链 通过数据加密和授权技术，存储在区块链上的信息是公开的 但是账户身 份信息是加密的 只有数据拥有者授权的情况下才能访问到，以此保证数据的安全和个人隐 私。</p>
+</li>
+<li><p>共识机制哪几种<br>  1，PoW工作量证明<br>  多劳多得 PoW 机制中根据矿工的工作量来执行货币的分配和记账权的确定。<br>  2，PoS股权证明<br>  持有越多，获得越多 POS 机制采用类似股权证明与投票的机制，选出记帐人，由它来创建区块。持有股权愈多 则有较大的特权，且需负担更多的责任来产生区块，同时也获得更多收益的权力。<br>  3，DPoS股份授权证明<br>  PoS 的主要区别在于节点选举若干个代理人，由代理人验 证和记账，但其监管、性能、资源消耗和容错性与 POS 相似。<br>  4，pBFT(Practical Byzantine Fault Tolerance)实用拜占庭容错，Hyperledger Fabric<br>  PBFT 算法的除了需要支持容错故障节点之外，还需要支持容错作恶节点。假设集群节点数为 N，有问题的节点为 f。有问题的节点中，可以既是故障节点，也可以是作恶节点，或者只是故障节点或者只是作恶节点。那么会产生以下两种极端情况：</p>
+<ul>
+<li>这f 个有问题节点既是故障节点，又是作恶节点，那么根据少数服从多数的原则，集群里正常节点只需要比f个节点再多一个节点，即 f+1 个节点，确节点的数量就会比故障节点数量多，那么集群就能达成共识，即总节点数为f+(f+1)&#x3D;n，也就是说这种情况支持的最大容错节点数量是 (n-1)&#x2F;2。</li>
+<li>故障节点和作恶节点都是不同的节点。那么就会有 f 个作恶节点和 f 个故障节点，当发现节点是作恶节点后，会被集群排除在外，剩下 f 个故障节点，那么根据少数服从多数的原则，集群里正常节点只需要比f个节点再多一个节点，即 f+1 个节点，确节点的数量就会比故障节点数量多，那么集群就能达成共识。所以，所有类型的节点数量加起来就是 f+1 个正常节点，f个故障节点和f个作恶节点，即 3f+1&#x3D;n。<br>  5，dBFT(delegated BFT)代理拜占庭容错，NEO</li>
+</ul>
+</li>
+</ul>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2024/08/13/blockchain-02/">blockchain-02</a></li>
+                
+                
+                    <li>下一篇: <a href="/2024/03/06/LLM1/">LLM 研究(1)</a></li>
+                
+            </ul>
+        </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://avatars.githubusercontent.com/u/11327150?v=4" alt="xidaokun" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>xidaokun</h4>
+                <p>本站未注明转载的文章均为原创，并采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow">CC BY-NC-SA 4.0</a> 授权协议，<span style="color: #E91E63">转载请注明来源</span>，谢谢。</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2024/08/13/blockchain-13/">blockchain-13</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/08/13/blockchain-12/">blockchain-12</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/08/13/blockchain-11/">blockchain-11</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/08/13/blockchain-10/">blockchain-10</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/08/13/blockchain-09/">blockchain-09</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/08/13/blockchain-08/">blockchain-08</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Algorithm/" style="font-size: 16.67px;">Algorithm</a> <a href="/tags/Android/" style="font-size: 11.67px;">Android</a> <a href="/tags/Application-Android/" style="font-size: 10px;">Application Android</a> <a href="/tags/Application-Backend/" style="font-size: 11.67px;">Application Backend</a> <a href="/tags/Architecture/" style="font-size: 11.67px;">Architecture</a> <a href="/tags/Architecture-Car/" style="font-size: 10px;">Architecture Car</a> <a href="/tags/IT-Basics/" style="font-size: 20px;">IT-Basics</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/OS/" style="font-size: 18.33px;">OS</a> <a href="/tags/Security/" style="font-size: 13.33px;">Security</a> <a href="/tags/Tool/" style="font-size: 11.67px;">Tool</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2024 <a href="/">xidaokun</a>. All Rights Reserved</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>
