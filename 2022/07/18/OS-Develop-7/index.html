@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>OS Develop 7 - xidaokun</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="xidaokun">
+    <meta property="og:title" content="OS Develop 7"/>
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>xidaokun</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                
+            </div>
+        </div>
+        
+            <a target="_blank" rel="noopener" href="https://github.com/xidaokun">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>OS Develop 7</h2>
+            <div class="post-meta">
+                <time class="date">2022.07.18</time>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <blockquote>这篇文章上次修改于 1038 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
+        
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>本章讨论中断。操作系统是中断来驱动的。</p>
+<h3 id="IDT"><a href="#IDT" class="headerlink" title="IDT"></a>IDT</h3><p>用于存储中断处理程序入口的描述符表。</p>
+<img src="/2022/07/18/OS-Develop-7/idt_format.png" class="" title="idt">
+
+<p>中断门包含了中断处理程序所在段的段选择子和段内偏移地址。当通过此方式进入中断后，标志寄存器eflags 中的 IF 位自动置 0，也就是在进入中断后，自动把中断关闭，避免中断嵌套。Linux 就是利用中断门实现的系统调用，就是那个著名的 int 0x80。中断门只允许存在于IDT中。描述符中中断门的type值为二进制1110。</p>
+<h3 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h3><p>1，外部设备的中断由中断代理芯片接收，处理后将该中断的中断向量号发送到CPU。<br>2，CPU执行该中断向量号对应的中断处理程序。</p>
+<h3 id="特权级检查"><a href="#特权级检查" class="headerlink" title="特权级检查"></a>特权级检查</h3><p>1，用户发起的软中断<br>对于软件发起的中断，当前特权级CPL必须在门描述符DPL和门中目标代码段DPL之间。</p>
+<p>下限检查：处理器要检查当前特权级CPL和门描述符DPL，这是检查进门的特权下限，如果CPL权限大于等于DPL，即数值上CPL≤门描述符DPL，特权级“门槛”检查通过，进入下一步的“门框”检查。否则处理器抛出异常。</p>
+<p>上限检查：处理器要检查当前特权级CPL和门描述符中所记录的选择子对应的目标代码段DPL，如果CPL权限小于目标代码段DPL，即数值上CPL&gt;目标代码段DPL，检查通过。否则CPL若大于等于目标代码段DPL，处理器将引发异常，也就是说，除了用返回指令从高特权级 返回，特权转移只能发生在由低向高。</p>
+<p>2，外部硬件引发的中断<br>处理器要检查当前特权级CPL和门描述符中所记录的选择子 对应的目标代码段DPL，如果CPL权限小于目标代码段DPL，即数值上CPL&gt;目标代码段DPL，检查通过。否则CPL若大于等于目标代码段DPL，处理器将引发异常。<br>注意：中断时的CPL是不确定的，有可能是0，也有可能是3。</p>
+<h3 id="中断压栈"><a href="#中断压栈" class="headerlink" title="中断压栈"></a>中断压栈</h3><p>中断发生，从IDT中找到的目标代码段选择子将会刷新到CS，这个时候CPU就认为将要换了一个段，会把当前的CS，EIP，EFLAGS等寄存器的值压入栈中，这个栈是当前特权级的栈，以便中断处理程序执行完后，在恢复现场继续执行。</p>
+<p>如果涉及到特权级的变化，还要将SS和ESP的值压入栈中，同时会将当前特权级栈中内容复制到目标特权级栈中。</p>
+<p>如果有错误码，它会紧跟在EIP后入栈。错误码是描述符选择子。</p>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2022/09/07/OS-Develop-8/">OS Develop 8</a></li>
+                
+                
+                    <li>下一篇: <a href="/2022/06/07/OS-Develop-6/">OS Develop 6</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/IT-Basics/" rel="tag">IT-Basics</a><a class="-none-link" href="/tags/OS/" rel="tag">OS</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://avatars.githubusercontent.com/u/11327150?v=4" alt="xidaokun" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>xidaokun</h4>
+                <p>本站未注明转载的文章均为原创，并采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow">CC BY-NC-SA 4.0</a> 授权协议，<span style="color: #E91E63">转载请注明来源</span>，谢谢。</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-04/">Blutooth-04</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-03/">Blutooth-03</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-02/">Blutooth-02</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-01/">Blutooth-01</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/07/Blockchain-1/">Blockchain-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/03/06/LLM1/">LLM 研究(1)</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Algorithm/" style="font-size: 16.67px;">Algorithm</a> <a href="/tags/Android/" style="font-size: 11.67px;">Android</a> <a href="/tags/Application-Android/" style="font-size: 10px;">Application Android</a> <a href="/tags/Application-Backend/" style="font-size: 11.67px;">Application Backend</a> <a href="/tags/Architecture/" style="font-size: 11.67px;">Architecture</a> <a href="/tags/Architecture-Car/" style="font-size: 10px;">Architecture Car</a> <a href="/tags/Blutooth/" style="font-size: 15px;">Blutooth</a> <a href="/tags/IT-Basics/" style="font-size: 20px;">IT-Basics</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/OS/" style="font-size: 18.33px;">OS</a> <a href="/tags/Security/" style="font-size: 13.33px;">Security</a> <a href="/tags/Tool/" style="font-size: 11.67px;">Tool</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2025 <a href="/">xidaokun</a>. All Rights Reserved</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Algorithm 4 - xidaokun</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="xidaokun">
+    <meta property="og:title" content="Algorithm 4"/>
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>xidaokun</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                
+            </div>
+        </div>
+        
+            <a target="_blank" rel="noopener" href="https://github.com/xidaokun">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Algorithm 4</h2>
+            <div class="post-meta">
+                <time class="date">2022.01.22</time>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <blockquote>这篇文章上次修改于 1214 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
+        
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>算法第四章，示例分析说明动态规划。</p>
+<h3 id="背包问题"><a href="#背包问题" class="headerlink" title="背包问题"></a>背包问题</h3><p>通过这个示例说明动态规划中的最优子结构怎么来的。</p>
+<p>有6个不同重量的物品：1kg，5kg，10kg，20kg，50kg，100kg要求用最少的物品，使承重为w的背包最重。<br>&#x2F;&#x2F; 枚举策略<br>能直接想到的方法，我们把不同重量组合全部枚举出来，然后选出一个最合适的；这种思路虽然简单，但实现起来复杂，且耗费时间和空间。<br>&#x2F;&#x2F; 贪心策略<br>那根据我们的一般经验来看，如果要用最少的物品，那我们首先就要选择较重的物品，换句话说我们为了最重目标，先考虑局部的最优解，这种方式就是贪心算法。不过这种方式某些情况下得不出正确的结果。<br>&#x2F;&#x2F; 贪心策略局限<br>比如现在有1kg，5kg和11kg，背包承重15kg，如果按照贪心策略，我们首先选择11kg，接着我们必须要选择4件1kg才能使背包最重，所以我们最重需要5件物品。而实际上，选择3件5kg的物品才是最优解。<br>&#x2F;&#x2F; 动态规划<br>继续分析，背包承重w&#x3D;15kg时，如果我们取11kg的物品，那背包剩余重量就为4kg；如果取5kg的物品，剩余重量就为10kg；如果取1kg的物品，那背包剩余重量为14kg；如果我们把剩余重量看作一个新的背包，就又出现了相同的问题——用最少的物品，使背包最重；也就是最优子结构，我们用公式表达出来：</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus"><span class="hljs-comment">// w=15时</span><br>取<span class="hljs-number">1</span>kg，<span class="hljs-built_in">f</span>(<span class="hljs-number">15</span>) = <span class="hljs-built_in">f</span>(<span class="hljs-number">15</span>-<span class="hljs-number">1</span>) + <span class="hljs-number">1</span><br>取<span class="hljs-number">5</span>kg，<span class="hljs-built_in">f</span>(<span class="hljs-number">15</span>) = <span class="hljs-built_in">f</span>(<span class="hljs-number">15</span>-<span class="hljs-number">5</span>) + <span class="hljs-number">1</span><br>取<span class="hljs-number">11</span>kg，<span class="hljs-built_in">f</span>(<span class="hljs-number">15</span>) = <span class="hljs-built_in">f</span>(<span class="hljs-number">15</span>-<span class="hljs-number">11</span>) + <span class="hljs-number">1</span><br><br><span class="hljs-comment">// 由此推出，如果w=n时</span><br>取<span class="hljs-number">1</span>kg，<span class="hljs-built_in">f</span>(n) = <span class="hljs-built_in">f</span>(n-<span class="hljs-number">1</span>) + <span class="hljs-number">1</span><br>取<span class="hljs-number">5</span>kg，<span class="hljs-built_in">f</span>(n) = <span class="hljs-built_in">f</span>(n-<span class="hljs-number">5</span>) + <span class="hljs-number">1</span><br>取<span class="hljs-number">11</span>kg，<span class="hljs-built_in">f</span>(n) = <span class="hljs-built_in">f</span>(n-<span class="hljs-number">11</span>) + <span class="hljs-number">1</span><br><br><span class="hljs-comment">// 所以，最优子结构就是：</span><br><span class="hljs-function"><span class="hljs-title">f</span><span class="hljs-params">(n)</span></span>=min&#123;<span class="hljs-built_in">f</span>(n-<span class="hljs-number">1</span>),<span class="hljs-built_in">f</span>(n-<span class="hljs-number">5</span>),<span class="hljs-built_in">f</span>(n-<span class="hljs-number">11</span>)&#125; + <span class="hljs-number">1</span><br><br><span class="hljs-comment">// 代码示例</span><br>fun <span class="hljs-built_in">dynamicAlg</span>(n: Int) &#123;<br>   val f = <span class="hljs-built_in">IntArray</span>(<span class="hljs-number">100</span>)<br>   <span class="hljs-selector-tag">var</span> count = <span class="hljs-number">0</span><br>   <span class="hljs-keyword">for</span> (<span class="hljs-selector-tag">i</span> <span class="hljs-keyword">in</span> <span class="hljs-number">1</span>..n) &#123;<br>      <span class="hljs-keyword">if</span> (<span class="hljs-selector-tag">i</span> - <span class="hljs-number">1</span> &gt;= <span class="hljs-number">0</span>) count = Math<span class="hljs-selector-class">.min</span>(count, f<span class="hljs-selector-attr">[i - 1]</span> + <span class="hljs-number">1</span>)<br>      <span class="hljs-keyword">if</span> (<span class="hljs-selector-tag">i</span> - <span class="hljs-number">5</span> &gt;= <span class="hljs-number">0</span>) count = Math<span class="hljs-selector-class">.min</span>(count, f<span class="hljs-selector-attr">[i - 5]</span> + <span class="hljs-number">1</span>)<br>      <span class="hljs-keyword">if</span> (<span class="hljs-selector-tag">i</span> - <span class="hljs-number">11</span> &gt;= <span class="hljs-number">0</span>) count = Math<span class="hljs-selector-class">.min</span>(count, f<span class="hljs-selector-attr">[i - 11]</span> + <span class="hljs-number">1</span>)<br>      f<span class="hljs-selector-attr">[i]</span> = count<br>      System<span class="hljs-selector-class">.out</span><span class="hljs-selector-class">.printf</span>(<span class="hljs-string">&quot;f[%d] = %d\n&quot;</span>, <span class="hljs-selector-tag">i</span>, f<span class="hljs-selector-attr">[i]</span>)<br>   &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="斐波那契数列"><a href="#斐波那契数列" class="headerlink" title="斐波那契数列"></a>斐波那契数列</h3><p>通过该示例说明下动态规划避免了重复计算。<br>&#x2F;&#x2F; 最优子结构</p>
+<img src="/2022/01/22/Algorithm-4/fibonacci_func.png" class="" title="divide conquer algorithm">
+
+<p>&#x2F;&#x2F; 重复计算</p>
+<img src="/2022/01/22/Algorithm-4/fibonacci_child.png" class="" title="divide conquer algorithm">
+
+<p>&#x2F;&#x2F; 存储结果，避免重复</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">var</span>  fib = <span class="hljs-function"><span class="hljs-title">fun</span> <span class="hljs-params">(n: <span class="hljs-type">Int</span>)</span></span>: <span class="hljs-built_in">Int</span> &#123;<br>   <span class="hljs-keyword">var</span> dp = intArrayOf()<br>   <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    <span class="hljs-keyword">if</span>(n==<span class="hljs-number">1</span> || n==<span class="hljs-number">2</span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>   &#125;<br><br>   dp[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span><br>   dp[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span><br><br>   <span class="hljs-keyword">var</span> i = <span class="hljs-number">2</span><br>   <span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> <span class="hljs-number">2.</span>.n) &#123;<br>      dp[i] = dp[i-<span class="hljs-number">1</span>] + dp[i-<span class="hljs-number">2</span>]<br>   &#125;<br>   <span class="hljs-keyword">return</span> dp[n]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><p>&#x2F;&#x2F; 和上面动态规划求解斐波那契数列对比看差别</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">var</span>  fib = <span class="hljs-function"><span class="hljs-title">fun</span> <span class="hljs-params">(n: <span class="hljs-type">Int</span>)</span></span>: <span class="hljs-built_in">Int</span> &#123;<br>   <span class="hljs-keyword">if</span>(n &lt;= <span class="hljs-number">0</span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>   &#125;<br><br>   <span class="hljs-keyword">if</span>(n==<span class="hljs-number">1</span> || n==<span class="hljs-number">2</span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>   &#125;<br><br>   <span class="hljs-keyword">return</span> fib(n-<span class="hljs-number">2</span>)+fib(n-<span class="hljs-number">1</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2022/01/27/Algorithm-5/">Algorithm 5</a></li>
+                
+                
+                    <li>下一篇: <a href="/2022/01/20/Algorithm-3/">Algorithm 3</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Algorithm/" rel="tag">Algorithm</a><a class="-none-link" href="/tags/IT-Basics/" rel="tag">IT-Basics</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://avatars.githubusercontent.com/u/11327150?v=4" alt="xidaokun" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>xidaokun</h4>
+                <p>本站未注明转载的文章均为原创，并采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow">CC BY-NC-SA 4.0</a> 授权协议，<span style="color: #E91E63">转载请注明来源</span>，谢谢。</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-04/">Blutooth-04</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-03/">Blutooth-03</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-02/">Blutooth-02</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-01/">Blutooth-01</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/07/Blockchain-1/">Blockchain-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/03/06/LLM1/">LLM 研究(1)</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Algorithm/" style="font-size: 16.67px;">Algorithm</a> <a href="/tags/Android/" style="font-size: 11.67px;">Android</a> <a href="/tags/Application-Android/" style="font-size: 10px;">Application Android</a> <a href="/tags/Application-Backend/" style="font-size: 11.67px;">Application Backend</a> <a href="/tags/Architecture/" style="font-size: 11.67px;">Architecture</a> <a href="/tags/Architecture-Car/" style="font-size: 10px;">Architecture Car</a> <a href="/tags/Blutooth/" style="font-size: 15px;">Blutooth</a> <a href="/tags/IT-Basics/" style="font-size: 20px;">IT-Basics</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/OS/" style="font-size: 18.33px;">OS</a> <a href="/tags/Security/" style="font-size: 13.33px;">Security</a> <a href="/tags/Tool/" style="font-size: 11.67px;">Tool</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2025 <a href="/">xidaokun</a>. All Rights Reserved</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>OS Develop 8 - xidaokun</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="xidaokun">
+    <meta property="og:title" content="OS Develop 8"/>
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>xidaokun</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                
+            </div>
+        </div>
+        
+            <a target="_blank" rel="noopener" href="https://github.com/xidaokun">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>OS Develop 8</h2>
+            <div class="post-meta">
+                <time class="date">2022.09.07</time>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <blockquote>这篇文章上次修改于 987 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
+        
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>本章讨论线程。</p>
+<h3 id="线程的本质"><a href="#线程的本质" class="headerlink" title="线程的本质"></a>线程的本质</h3><p>OS把资源(静态)和执行(动态)分开；线程是指令执行流，它也是调度器的调度单元。</p>
+<h3 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h3><ul>
+<li>内核线程(KLT)<br>  Kernel-Level Thread，建立在内核空间内，由内核线程调度器管理。</li>
+<li>用户线程(UT)<br>  User Thead，建立在用户空间内，可以在用户空间实现调度，也可以使用内核空间的调度器，内核不能感知到用户线程的存在。它的优势常以线程库的形式提供给开发者，比如Java就曾使用该方式。</li>
+<li>轻量级进程(LWP)<br>  是OS提供给用户操作内核线程的接口实现；用户空间可以通过LWP来使用内核线程。</li>
+</ul>
+<h3 id="线程模型"><a href="#线程模型" class="headerlink" title="线程模型"></a>线程模型</h3><p>1，用户线程模型<br>线程的创建、切换和调度都需要用户程序自己来处理，这种模型局限太大，很少使用。</p>
+<p>2，内核线程模型<br>进程通过轻量级进程(LWP)去使用内核线程，LWP和KLT(内核线程)时一对一的关系。</p>
+<img src="/2022/09/07/OS-Develop-8/lwp_klt_single_map.png" class="" title="single model">
+
+<p>3，混合模型<br>用户线程和内核线程一起使用的模式；UT通过LWP和KLT建立关系，UT和LWP是N:M的关系，LWP和KLT是1:1的关系。</p>
+<img src="/2022/09/07/OS-Develop-8/mul_thread_model.png" class="" title="mul model">
+
+<p>注：Linux采用的是内核线程模型。</p>
+<h3 id="PCB"><a href="#PCB" class="headerlink" title="PCB"></a>PCB</h3><p>用来描述进程的外部特征，进程的运动变化过程。同时它还是调度器的调度数据单元。</p>
+<h3 id="内核线程创建"><a href="#内核线程创建" class="headerlink" title="内核线程创建"></a>内核线程创建</h3><p>1，定义中断栈<br>通过中断从用户态进入内核态（这期间也会有特权级的变化）用于中断发生时保护程序的上下文环境。<br>2，定义线程栈<br>线程自己的栈，保存待执行函数和线程切换时保存线程的环境。<br>3，定义PCB<br>4，定义函数</p>
+<ul>
+<li>thread_func</li>
+<li>thread_create</li>
+<li>thread_start<br>5，代码链路</li>
+<li>首先申请一页内存(4k)，该页用于存放PCB信息</li>
+<li>然后初始化PCB信息</li>
+<li>在该页顶端预留出中断栈</li>
+<li>在中断栈下预留出线程栈</li>
+<li>然后将待执行函数和参数压入线程栈中</li>
+<li>ret发起调用：在create时，依次赋值kernel_thread，function，func_arg和4个ABI参数，赋值顺序也就是入栈顺序；调用时先弹出4个ABI参数，然后调用ret指令，这个时候栈中的参数和函数地址就会被弹出，并调用到。<img src="/2022/09/07/OS-Develop-8/thread_create.png" class="" title="thread create"></li>
+</ul>
+<h3 id="线程调度"><a href="#线程调度" class="headerlink" title="线程调度"></a>线程调度</h3><p>线程调度是由中断来驱动的。<br>1，注册中断处理函数<br>2，中断来了后，将当前线程的ticks减1，直到0；（中断来了还要保护当前线程的上下文）<br>3，变为0后，将当前线程ticks重新赋值，放到就绪队列队尾<br>4，然后去就绪队列对头取下一个要执行的线程</p>
+<p>注意：中断发生后，CPU会自动将中断关闭，所以每次都要在软件中把中断打开。</p>
+<h3 id="调度保护"><a href="#调度保护" class="headerlink" title="调度保护"></a>调度保护</h3><p>1，中断保护<br>进入中断前，要保护好当前CPU执行任务的上下文环境。<br>2，ABI主调函数环境保护</p>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2022/11/05/OS-Develop-9/">OS Develop 9</a></li>
+                
+                
+                    <li>下一篇: <a href="/2022/07/18/OS-Develop-7/">OS Develop 7</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/IT-Basics/" rel="tag">IT-Basics</a><a class="-none-link" href="/tags/OS/" rel="tag">OS</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://avatars.githubusercontent.com/u/11327150?v=4" alt="xidaokun" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>xidaokun</h4>
+                <p>本站未注明转载的文章均为原创，并采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow">CC BY-NC-SA 4.0</a> 授权协议，<span style="color: #E91E63">转载请注明来源</span>，谢谢。</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-04/">Blutooth-04</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-03/">Blutooth-03</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-02/">Blutooth-02</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-01/">Blutooth-01</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/07/Blockchain-1/">Blockchain-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/03/06/LLM1/">LLM 研究(1)</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Algorithm/" style="font-size: 16.67px;">Algorithm</a> <a href="/tags/Android/" style="font-size: 11.67px;">Android</a> <a href="/tags/Application-Android/" style="font-size: 10px;">Application Android</a> <a href="/tags/Application-Backend/" style="font-size: 11.67px;">Application Backend</a> <a href="/tags/Architecture/" style="font-size: 11.67px;">Architecture</a> <a href="/tags/Architecture-Car/" style="font-size: 10px;">Architecture Car</a> <a href="/tags/Blutooth/" style="font-size: 15px;">Blutooth</a> <a href="/tags/IT-Basics/" style="font-size: 20px;">IT-Basics</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/OS/" style="font-size: 18.33px;">OS</a> <a href="/tags/Security/" style="font-size: 13.33px;">Security</a> <a href="/tags/Tool/" style="font-size: 11.67px;">Tool</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2025 <a href="/">xidaokun</a>. All Rights Reserved</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

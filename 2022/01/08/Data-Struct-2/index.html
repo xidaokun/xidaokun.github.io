@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Data Struct 2 - xidaokun</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="xidaokun">
+    <meta property="og:title" content="Data Struct 2"/>
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>xidaokun</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                
+            </div>
+        </div>
+        
+            <a target="_blank" rel="noopener" href="https://github.com/xidaokun">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Data Struct 2</h2>
+            <div class="post-meta">
+                <time class="date">2022.01.08</time>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <blockquote>这篇文章上次修改于 1228 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
+        
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>数据结构第二章，讨论树。</p>
+<h3 id="树"><a href="#树" class="headerlink" title="树"></a>树</h3><p>树作为一种树状的数据结构，其数据节点之间的关系也如大树一样，将有限个节点根据不同层次关系进行排列，从而形成数据与数据之间的父子关系。<br>树的数据存储在结点中，每个结点有零个或者多个子结点。没有父结点的结点在最顶端，成为根节点；没有非根结点有且只有一个父节点；每个非根节点又可以分为多个不相交的子树。</p>
+<img src="/2022/01/08/Data-Struct-2/struct_tree.png" class="" title="struct tree">
+<ul>
+<li>子树: 除了根节点外，每个子节点都可以分为多个不相交的子树。</li>
+<li>孩子与双亲: 若一个结点有子树，那么该结点称为子树根的”双亲”，子树的根是该结点的”孩子”。上图中，B、H是A的孩子，A是B、H的双亲。</li>
+<li>兄弟: 具有相同双亲的节点互为兄弟，例如B与H互为兄弟。</li>
+<li>节点的度: 一个节点拥有子树的数目。例如A的度为2，B的度为1，C的度为3。</li>
+<li>叶子: 没有子树，也即是度为0的节点。</li>
+<li>分支节点: 除了叶子节点之外的节点，也即是度不为0的节点。</li>
+<li>内部节点: 除了根节点之外的分支节点。</li>
+<li>层次: 根节点为第一层，其余节点的层次等于其双亲节点的层次加1。</li>
+<li>树的高度: 也称为树的深度，树中节点的最大层次。</li>
+<li>有序树: 树中节点各子树之间的次序是重要的，不可以随意交换位置。</li>
+<li>无序树: 树种节点各子树之间的次序是不重要的。可以随意交换位置。森林: 0或多棵互不相交的树的集合。例如图二中的两棵树为森林。</li>
+</ul>
+<h3 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h3><p>最多有两棵子树的树被称为二叉树。</p>
+<img src="/2022/01/08/Data-Struct-2/struct_tree.png" class="" title="struct tree">
+
+<h3 id="斜树"><a href="#斜树" class="headerlink" title="斜树"></a>斜树</h3><p>所有节点都只有左子树的二叉树叫做左斜树，所有节点都只有右子树的二叉树叫做右斜树。</p>
+<h3 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h3><p>二叉树中所有非叶子结点的度都是2，且叶子结点都在同一层次上。</p>
+<img src="/2022/01/08/Data-Struct-2/struct_full_binary_tree.png" class="" title="full binary tree">
+
+<h3 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h3><p>如果一个二叉树与满二叉树前m个节点的结构相同，这样的二叉树被称为完全二叉树。</p>
+<img src="/2022/01/08/Data-Struct-2/complete_binary_tree.png" class="" title="complete binary tree">
+
+
+<h3 id="二叉查找树-BST"><a href="#二叉查找树-BST" class="headerlink" title="二叉查找树(BST)"></a>二叉查找树(BST)</h3><p>二叉查找树(Binary Search Tree)是指一棵空树或者具有下列性质的二叉树:</p>
+<ul>
+<li>若任意节点的左子树不空，则左子树上所有节点的值均小于它的根节点的值；</li>
+<li>若任意节点的右子树不空，则右子树上所有节点的值均大于它的根节点的值；</li>
+<li>任意节点的左、右子树也分别为二叉查找树；没有键值相等的节点。</li>
+</ul>
+<h3 id="平衡二叉树-AVL"><a href="#平衡二叉树-AVL" class="headerlink" title="平衡二叉树(AVL)"></a>平衡二叉树(AVL)</h3><p>含有相同节点的二叉查找树可以有不同的形态，而二叉查找树的平均查找长度与树的深度有关，所以需要找出一个查找平均长度最小的一棵，那就是平衡二叉树，具有以下性质:</p>
+<ul>
+<li>要么是棵空树，要么其根节点左右子树的深度之差的绝对值不超过1；</li>
+<li>其左右子树也都是平衡二叉树；</li>
+<li>二叉树节点的平衡因子定义为该节点的左子树的深度减去右子树的深度。则平衡二叉树的所有节点的平衡因子只可能是-1,0,1。</li>
+</ul>
+<h3 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h3><p>红黑树也是一种自平衡的二叉查找树。</p>
+<ul>
+<li>每个结点要么是红的要么是黑的。(红或黑)</li>
+<li>根结点是黑的。(根黑)</li>
+<li>每个叶结点(叶结点即指树尾端NIL指针或NULL结点)都是黑的。(叶黑)</li>
+<li>如果一个结点是红的，那么它的两个儿子都是黑的。(红子黑)</li>
+<li>对于任意结点而言，其到叶结点树尾端NIL指针的每条路径都包含相同数目的黑结点。(路径下黑相同)</li>
+</ul>
+<h3 id="哈夫曼树"><a href="#哈夫曼树" class="headerlink" title="哈夫曼树"></a>哈夫曼树</h3><p>哈夫曼又称最优二叉树。是一种带权路径长度最短的二叉树：</p>
+<ul>
+<li>将所有左，右子树都为空的作为根节点。</li>
+<li>在森林中选出两棵根节点的权值最小的树作为一棵新树的左，右子树，且置新树的附加根节点的权值为其左，右子树上根节点的权值之和。注意，左子树的权值应小于右子树的权值。</li>
+<li>从森林中删除这两棵树，同时把新树加入到森林中。</li>
+<li>重复2，3步骤，直到森林中只有一棵树为止，此树便是哈夫曼树。</li>
+</ul>
+<h3 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h3><p>B树(B-tree)是一种自平衡的树，能够保持数据有序。这种数据结构能够让查找数据、顺序访问、插入数据及删除的动作，都在对数时间内完成。B树，概括来说是一种自平衡的m阶树，与自平衡二叉查找树不同，B树适用于读写相对大的数据块的存储系统，例如磁盘。</p>
+<h3 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h3><p>B+ 树是一种树数据结构，通常用于关系型数据库(如Mysql)和操作系统的文件系统中。B+ 树的特点是能够保持数据稳定有序，其插入与修改拥有较稳定的对数时间复杂度。B+ 树元素自底向上插入，这与二叉树恰好相反。在B树基础上，为叶子结点增加链表指针(B树+叶子有序链表)，所有关键字都在叶子结点 中出现，非叶子结点作为叶子结点的索引；B+树总是到叶子结点才命中。b+树的非叶子节点不保存数据，只保存子树的临界值(最大或者最小)，所以同样大小的节点，b+树相对于b树能够有更多的分支，使得这棵树更加矮胖，查询时做的IO操作次数也更少。</p>
+<h3 id="R树"><a href="#R树" class="headerlink" title="R树"></a>R树</h3><p>R树是用来做空间数据存储的树状数据结构。例如给地理位置，矩形和多边形这类多维数据建立索引。R树的核心思想是聚合距离相近的节点并在树结构的上一层将其表示为这些节点的最小外接矩形(MBR)，这个最小外接矩形就成为上一层的一个节点。因为所有节点都在它们的最小外接矩形中，所以跟某个矩形不相交的查询就一定跟这个矩形中的所有节点都不相交。叶子节点上的每个矩形都代表一个对象，节点都是对象的聚合，并且越往上层聚合的对象就越多。也可以把每一层看做是对数据集的近似，叶子节点层是最细粒度的近似，与数据集相似度100%，越往上层越粗糙。</p>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2022/01/09/Data-Struct-3/">Data Struct 3</a></li>
+                
+                
+                    <li>下一篇: <a href="/2022/01/05/Data-Struct-1/">Data Struct 1</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Algorithm/" rel="tag">Algorithm</a><a class="-none-link" href="/tags/IT-Basics/" rel="tag">IT-Basics</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://avatars.githubusercontent.com/u/11327150?v=4" alt="xidaokun" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>xidaokun</h4>
+                <p>本站未注明转载的文章均为原创，并采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow">CC BY-NC-SA 4.0</a> 授权协议，<span style="color: #E91E63">转载请注明来源</span>，谢谢。</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-04/">Blutooth-04</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-03/">Blutooth-03</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-02/">Blutooth-02</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-01/">Blutooth-01</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/07/Blockchain-1/">Blockchain-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/03/06/LLM1/">LLM 研究(1)</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Algorithm/" style="font-size: 16.67px;">Algorithm</a> <a href="/tags/Android/" style="font-size: 11.67px;">Android</a> <a href="/tags/Application-Android/" style="font-size: 10px;">Application Android</a> <a href="/tags/Application-Backend/" style="font-size: 11.67px;">Application Backend</a> <a href="/tags/Architecture/" style="font-size: 11.67px;">Architecture</a> <a href="/tags/Architecture-Car/" style="font-size: 10px;">Architecture Car</a> <a href="/tags/Blutooth/" style="font-size: 15px;">Blutooth</a> <a href="/tags/IT-Basics/" style="font-size: 20px;">IT-Basics</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/OS/" style="font-size: 18.33px;">OS</a> <a href="/tags/Security/" style="font-size: 13.33px;">Security</a> <a href="/tags/Tool/" style="font-size: 11.67px;">Tool</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2025 <a href="/">xidaokun</a>. All Rights Reserved</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

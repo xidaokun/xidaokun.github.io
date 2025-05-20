@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Blutooth-02 - xidaokun</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="xidaokun">
+    <meta property="og:title" content="Blutooth-02"/>
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>xidaokun</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                
+            </div>
+        </div>
+        
+            <a target="_blank" rel="noopener" href="https://github.com/xidaokun">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Blutooth-02</h2>
+            <div class="post-meta">
+                <time class="date">2025.05.14</time>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>本章为蓝牙硬件架构简介篇。蓝牙硬件架构是实现蓝牙通信的物理基础，其设计直接影响设备的性能、功耗和功能。</p>
+<h3 id="硬件核心模块"><a href="#硬件核心模块" class="headerlink" title="硬件核心模块"></a>硬件核心模块</h3><p>蓝牙硬件通常由<strong>射频模块（RF）</strong>、<strong>基带处理器（Baseband）</strong>和<strong>主控制器（Host Controller）</strong>组成，现代芯片多采用<strong>SoC（System on Chip）</strong>集成设计。</p>
+<h4 id="1-射频模块（RF-Transceiver）"><a href="#1-射频模块（RF-Transceiver）" class="headerlink" title="1. 射频模块（RF Transceiver）"></a><strong>1. 射频模块（RF Transceiver）</strong></h4><ul>
+<li><strong>功能</strong>：负责无线信号的调制、解调及传输。</li>
+<li><strong>关键技术</strong>：<ul>
+<li><strong>频段</strong>：2.4 GHz ISM频段（2402-2480 MHz）。</li>
+<li><strong>调制方式</strong>：<ul>
+<li><strong>经典蓝牙</strong>：GFSK（高斯频移键控），支持高速数据传输（EDR模式下可选 π&#x2F;4-DQPSK、8DPSK）。</li>
+<li><strong>BLE</strong>：GFSK，蓝牙5.0新增2M PHY（高速模式）和Coded PHY（长距离模式）。</li>
+</ul>
+</li>
+<li><strong>功率控制</strong>：动态调整发射功率以降低功耗（典型范围：-20 dBm 到 +20 dBm）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-基带处理器（Baseband-Processor）"><a href="#2-基带处理器（Baseband-Processor）" class="headerlink" title="2. 基带处理器（Baseband Processor）"></a><strong>2. 基带处理器（Baseband Processor）</strong></h4><ul>
+<li><strong>功能</strong>：处理物理层协议（PHY），包括：<ul>
+<li><strong>跳频（FHSS）</strong>：经典蓝牙每秒跳频1600次，BLE无连接时使用广播信道。</li>
+<li><strong>数据包组装&#x2F;解析</strong>：生成符合蓝牙标准的数据帧（前导码、接入地址、CRC校验等）。</li>
+<li><strong>加密</strong>：支持AES-CCM加密算法（硬件加速）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-主控制器（Host-Controller）"><a href="#3-主控制器（Host-Controller）" class="headerlink" title="3. 主控制器（Host Controller）"></a><strong>3. 主控制器（Host Controller）</strong></h4><ul>
+<li><strong>功能</strong>：实现蓝牙协议栈的控制器层（Controller Stack）：<ul>
+<li><strong>链路层（Link Layer）</strong>：管理连接状态（广告、扫描、发起连接）。</li>
+<li><strong>HCI接口</strong>：通过UART、SPI或USB与主机（Host）通信。</li>
+<li><strong>硬件加速器</strong>：如CRC校验、数据包过滤（白名单）等。</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-其他组件"><a href="#4-其他组件" class="headerlink" title="4. 其他组件"></a><strong>4. 其他组件</strong></h4><ul>
+<li><strong>天线</strong>：PCB天线、陶瓷天线或外接天线（影响通信距离）。</li>
+<li><strong>时钟源</strong>：低功耗晶体振荡器（如32.768 kHz RTC时钟 + 高频主时钟）。</li>
+<li><strong>电源管理单元（PMU）</strong>：支持多种低功耗模式（如BLE的睡眠模式）。</li>
+</ul>
+<h3 id="典型蓝牙芯片架构（以双模芯片为例）"><a href="#典型蓝牙芯片架构（以双模芯片为例）" class="headerlink" title="典型蓝牙芯片架构（以双模芯片为例）"></a><strong>典型蓝牙芯片架构（以双模芯片为例）</strong></h3><p>现代蓝牙芯片（如<strong>Nordic nRF5340</strong>、<strong>TI CC2564</strong>）通常支持<strong>经典蓝牙 + BLE双模</strong>，架构示例如下：</p>
+<ol>
+<li><p><strong>射频前端（RF Front-End）</strong>  </p>
+<ul>
+<li>包含功率放大器（PA）、低噪声放大器（LNA）、混频器（Mixer）。</li>
+<li>支持自适应跳频（AFH）抗干扰。</li>
+</ul>
+</li>
+<li><p><strong>数字信号处理器（DSP）</strong>  </p>
+<ul>
+<li>处理基带信号（如GFSK解调）。</li>
+<li>硬件加速加密引擎（AES-128&#x2F;256）。</li>
+</ul>
+</li>
+<li><p><strong>处理器核心</strong>  </p>
+<ul>
+<li><strong>应用处理器</strong>：运行协议栈主机层（Host Stack）及用户应用（如ARM Cortex-M系列）。</li>
+<li><strong>网络处理器</strong>：专用核处理实时任务（如连接管理）。</li>
+</ul>
+</li>
+<li><p><strong>存储单元</strong>  </p>
+<ul>
+<li>Flash：存储协议栈固件及用户程序。</li>
+<li>RAM：运行时的数据缓存。</li>
+</ul>
+</li>
+<li><p><strong>外设接口</strong>  </p>
+<ul>
+<li><strong>GPIO</strong>：连接传感器、LED等。</li>
+<li><strong>I2C&#x2F;SPI&#x2F;UART</strong>：与主控MCU通信。</li>
+<li><strong>PWM&#x2F;ADC</strong>：支持模拟信号采集（如BLE温度传感器）。</li>
+</ul>
+</li>
+</ol>
+<h3 id="低功耗设计的关键技术"><a href="#低功耗设计的关键技术" class="headerlink" title="低功耗设计的关键技术"></a><strong>低功耗设计的关键技术</strong></h3><ol>
+<li><p><strong>睡眠模式（Sleep Modes）</strong>  </p>
+<ul>
+<li><strong>深度睡眠</strong>：关闭射频和大部分逻辑电路，仅保留RTC运行。</li>
+<li><strong>事件驱动唤醒</strong>：通过中断（如GPIO、定时器）唤醒芯片。</li>
+</ul>
+</li>
+<li><p><strong>动态功耗调整</strong>  </p>
+<ul>
+<li>根据连接间隔（Connection Interval）调整射频工作时间（BLE典型间隔：7.5ms-4s）。</li>
+</ul>
+</li>
+<li><p><strong>片上DC-DC转换器</strong>  </p>
+<ul>
+<li>提高电源效率（如nRF52系列芯片功耗可低至1μA@睡眠模式）。</li>
+</ul>
+</li>
+</ol>
+<h3 id="典型应用场景与硬件选型"><a href="#典型应用场景与硬件选型" class="headerlink" title="典型应用场景与硬件选型"></a><strong>典型应用场景与硬件选型</strong></h3><ol>
+<li><p><strong>音频设备（经典蓝牙）</strong>  </p>
+<ul>
+<li>芯片要求：支持A2DP、HFP协议，需高带宽（如Qualcomm QCC系列）。</li>
+<li>硬件外设：I2S接口、DAC&#x2F;ADC。</li>
+</ul>
+</li>
+<li><p><strong>物联网传感器（BLE）</strong>  </p>
+<ul>
+<li>芯片要求：超低功耗、支持GATT服务（如Nordic nRF52840）。</li>
+<li>硬件外设：12位ADC、温度传感器。</li>
+</ul>
+</li>
+<li><p><strong>双模设备（智能手表）</strong>  </p>
+<ul>
+<li>芯片要求：同时支持BLE（数据传输）和经典蓝牙（音频），如ESP32系列。</li>
+</ul>
+</li>
+</ol>
+<h3 id="开发注意事项"><a href="#开发注意事项" class="headerlink" title="开发注意事项"></a><strong>开发注意事项</strong></h3><ol>
+<li><p><strong>天线设计</strong>  </p>
+<ul>
+<li>阻抗匹配（通常50Ω）、PCB布局避免干扰（如远离高频信号线）。</li>
+</ul>
+</li>
+<li><p><strong>认证要求</strong>  </p>
+<ul>
+<li>通过蓝牙SIG认证（QDID），确保射频合规性（如ETSI&#x2F;FCC标准）。</li>
+</ul>
+</li>
+<li><p><strong>功耗优化</strong>  </p>
+<ul>
+<li>减少广播数据量（BLE）、优化连接参数（如Slave Latency）。</li>
+</ul>
+</li>
+<li><p><strong>兼容性测试</strong>  </p>
+<ul>
+<li>使用蓝牙嗅探器（如Ellisys）验证与其他设备的互操作性。</li>
+</ul>
+</li>
+</ol>
+<h3 id="主流蓝牙芯片厂商"><a href="#主流蓝牙芯片厂商" class="headerlink" title="主流蓝牙芯片厂商"></a><strong>主流蓝牙芯片厂商</strong></h3><ul>
+<li><strong>低功耗蓝牙（BLE）</strong>：Nordic Semiconductor（nRF系列）、TI（CC26xx）、Dialog（DA145xx）。</li>
+<li><strong>经典蓝牙</strong>：Qualcomm（CSR系列）、Broadcom（BCM系列）。</li>
+<li><strong>双模芯片</strong>：ESP32（乐鑫）、STMicroelectronics（STM32WB）。</li>
+</ul>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2025/05/20/Blutooth-03/">Blutooth-03</a></li>
+                
+                
+                    <li>下一篇: <a href="/2025/05/14/Blutooth-01/">Blutooth-01</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Blutooth/" rel="tag">Blutooth</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://avatars.githubusercontent.com/u/11327150?v=4" alt="xidaokun" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>xidaokun</h4>
+                <p>本站未注明转载的文章均为原创，并采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow">CC BY-NC-SA 4.0</a> 授权协议，<span style="color: #E91E63">转载请注明来源</span>，谢谢。</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-04/">Blutooth-04</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-03/">Blutooth-03</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-02/">Blutooth-02</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-01/">Blutooth-01</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/07/Blockchain-1/">Blockchain-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/03/06/LLM1/">LLM 研究(1)</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Algorithm/" style="font-size: 16.67px;">Algorithm</a> <a href="/tags/Android/" style="font-size: 11.67px;">Android</a> <a href="/tags/Application-Android/" style="font-size: 10px;">Application Android</a> <a href="/tags/Application-Backend/" style="font-size: 11.67px;">Application Backend</a> <a href="/tags/Architecture/" style="font-size: 11.67px;">Architecture</a> <a href="/tags/Architecture-Car/" style="font-size: 10px;">Architecture Car</a> <a href="/tags/Blutooth/" style="font-size: 15px;">Blutooth</a> <a href="/tags/IT-Basics/" style="font-size: 20px;">IT-Basics</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/OS/" style="font-size: 18.33px;">OS</a> <a href="/tags/Security/" style="font-size: 13.33px;">Security</a> <a href="/tags/Tool/" style="font-size: 11.67px;">Tool</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2025 <a href="/">xidaokun</a>. All Rights Reserved</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Algorithm 1 - xidaokun</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="xidaokun">
+    <meta property="og:title" content="Algorithm 1"/>
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>xidaokun</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                
+            </div>
+        </div>
+        
+            <a target="_blank" rel="noopener" href="https://github.com/xidaokun">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Algorithm 1</h2>
+            <div class="post-meta">
+                <time class="date">2022.01.17</time>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <blockquote>这篇文章上次修改于 1219 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
+        
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>算法第一章，讨论设计算法可以采用的策略。</p>
+<h3 id="枚举策略"><a href="#枚举策略" class="headerlink" title="枚举策略"></a>枚举策略</h3><p>枚举策略是将问题的可能解依次列举出来，然后一一带入问题检验，找到问题的解。</p>
+<p>枚举的优点是思路简单，只需要列举出「可能解」，然后逐个代入求解即可。缺点也很明显，由于「可能解」的数量过多，无法在有限空间或有限时间内完成所有可能性的验证。不过实际上枚举思想是最接近人的思维方式，在更多的时候是用来帮助我们去「理解问题」，而不是「解决问题」。</p>
+<h3 id="递推策略"><a href="#递推策略" class="headerlink" title="递推策略"></a>递推策略</h3><p>递推策略的核心就是从已知条件出发，逐步推算出问题的解。递推也是接近人类思维方式的思想，从经验和规律中，推导出问题的解。</p>
+<img src="/2022/01/17/Algorithm-1/alg_recursion.webp" class="" title="recursion algorithm">
+
+
+<h3 id="分治策略"><a href="#分治策略" class="headerlink" title="分治策略"></a>分治策略</h3><p>分而治之，就是把一个复杂的问题分成两个或更多的相同或相似的子问题，直到最后子问题可以简单的直接求解，原问题的解即子问题的解的合并。</p>
+<img src="/2022/01/17/Algorithm-1/alg_divide_conquer.jpeg" class="" title="divide conquer algorithm">
+<p>递归就是分治策略的实现。</p>
+<h3 id="贪心策略"><a href="#贪心策略" class="headerlink" title="贪心策略"></a>贪心策略</h3><p>贪心算法的实现过程就是从问题的一个初始解出发，每一次都作出「当前最优」的选择，直至遇到局部极值点。贪心所带来的局限性很明显，就是无法保证最后的解是最优的，很容易陷入局部最优的情况。</p>
+<h3 id="动态规划策略"><a href="#动态规划策略" class="headerlink" title="动态规划策略"></a>动态规划策略</h3><p>动态规划是一种通过把原问题分解为相对简单的子问题的方式来求解复杂问题的方法。这些子问题的解被保存起来，以便在解决原问题时可以重复使用。例如，斐波那契数列就可以用动态规划求解。<br>动态规划三大特征：</p>
+<ul>
+<li>最优子结构性质<br>指的是一个问题的最优解包含其子问题的最优解。</li>
+<li>重叠子问题性质<br>指的是在求解子问题的过程中，有大量的子问题是重复的，一个子问题在下一阶段的决策中可能会被多次用到。</li>
+<li>无后效性<br>一旦某一个子问题的求解结果确定以后，就不会再被修改，也就是重复计算的结果也是不会变的，否则动态规划里面的存储也就没什么意义了。</li>
+</ul>
+<p>应用场景：<br>问题能够分解成子问题来解决，子问题重叠性质是指在用递归算法自顶向下对问题进行求解时，每次产生的子问题并不总是新问题，有些子问题会被重复计算多次，为了避免多次解决这些子问题，它们的结果都逐渐被计算并被保存，因而不会在解决同样的问题时花费时间，直到整个问题都被解决。</p>
+<h3 id="深度优先策略"><a href="#深度优先策略" class="headerlink" title="深度优先策略"></a>深度优先策略</h3><p>比如回溯法就是深度优先策略。<br>回溯法是一种选优搜索法，按选优条件向纵深搜索(深度优先)，以达到目标。采用试错的思想，它尝试分步的去解决一个问题。但当探索到某一步时，发现原先选择并不优或达不到目标，就退回一步重新选择，这种走不通就退回再走的技术为回溯法，而满足回溯条件的某个状态的点称为回溯点。</p>
+<h3 id="广度优先策略"><a href="#广度优先策略" class="headerlink" title="广度优先策略"></a>广度优先策略</h3><p>比如分治限界就是广度优先策略。<br>所谓“分支”就是采用广度优先(BFS)的策略，依次搜索E-结点的所有分支，也就是所有相邻的结点，抛弃不满足约束的结点，其余节点加入活结点表。<br>分支限界法类似于回溯法，也是一种在问题的解空间树上搜索问题解的算法，但在一般情况下，分支限界法与回溯法的求解目标不同。回溯法的求解目标是找出解空间树中满足约束条件的所有解，而分支限界法的求解目标则是找出满足约束条件的一个解，或是在满足约束条件的解中找出使某一目标函数值达到极大或极小的解，即在某种意义下的最优解。</p>
+<h3 id="剪枝策略"><a href="#剪枝策略" class="headerlink" title="剪枝策略"></a>剪枝策略</h3><p>搜索算法一般是基于两种方法来进行的（ 深度优先 DFS 和广度优先 BFS ），而这两算法都是基于二叉搜索树的进行的。学过数据结构和算法的都知道二叉搜索树存在很多的分支，很难一次性拿到想要的结果，尤其是当输入参数较大时，二叉搜索树的分支大规模增加的时候，此时，由于搜索过程需要走很多条完全于与结果不相关的路线，所以剪枝思想就出现了。剪枝一种可以提高搜索算法时间和空间的策略，经过剪枝和其他优化策略优化过的算法在执行效率上远超一般未经剪枝的算法。甚至有些暴力搜索过不了时限的算法，也可以通过各种剪枝+优化大大缩短算法运行时间，成功通过时效限制。由此可见剪枝对于搜索算法的重要性。因此，剪枝对于学习算法和在工作中与算法打交道的人来说都是一类不得不学的知识点。</p>
+<ul>
+<li><p>可行性剪枝<br>所谓可行性剪枝，就是如当前状态和题意不符，并且由于题目可以推出，往后的所有情况和题意都不符，那么就可以进行剪枝，直接把这种情况及后续的所有情况判负，直接返回。</p>
+</li>
+<li><p>排除等效冗余<br>所谓排除等效冗余，就是当几个枝桠具有完全相同的效果的时候，只选择其中一个走就可以了。</p>
+</li>
+<li><p>最优性剪枝<br>所谓最优性剪枝，是在我们用搜索方法解决最优化问题的时候的一种常用剪枝方法。当搜到一半的时候，发现比已经搜索到的最优解差，则该方案肯定是不行的，即刻停止搜索，进行回溯。</p>
+</li>
+<li><p>顺序剪枝<br>普遍来讲，搜索的顺序是不固定的，对一个问题来讲，算法可以进入搜索树的任意的一个子节点。但假如我们要搜索一个最小值，而非要从最大值存在的那个节点开搜，就可能存在搜索到最后才出解。而我们从最小的节点开搜很可能马上就出解。这就是顺序剪枝的一个应用。一般来讲，有单调性存在的搜索问题可以和贪心思想结合，进行顺序剪枝。</p>
+</li>
+<li><p>记忆化<br>记忆化搜索其实是搜索的另外一个分支。在这里简单介绍一下记忆化的原理：就是记录搜索的每一个状态，当重复搜索到相同的状态的时候直接返回。</p>
+</li>
+</ul>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>在实际应用中，我们需要根据具体问题选择合适的算法设计策略。有时候一个问题可能需要结合多种策略来解决。例如，在求解最短路径问题时，我们可以使用贪心算法和动态规划的结合，从起点开始不断选择最近的点作为下一步，同时记录下已经走过的路径，避免重复计算。</p>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2022/01/18/Algorithm-2/">Algorithm 2</a></li>
+                
+                
+                    <li>下一篇: <a href="/2022/01/09/Data-Struct-3/">Data Struct 3</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Algorithm/" rel="tag">Algorithm</a><a class="-none-link" href="/tags/IT-Basics/" rel="tag">IT-Basics</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://avatars.githubusercontent.com/u/11327150?v=4" alt="xidaokun" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>xidaokun</h4>
+                <p>本站未注明转载的文章均为原创，并采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow">CC BY-NC-SA 4.0</a> 授权协议，<span style="color: #E91E63">转载请注明来源</span>，谢谢。</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-04/">Blutooth-04</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-03/">Blutooth-03</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-02/">Blutooth-02</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-01/">Blutooth-01</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/07/Blockchain-1/">Blockchain-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/03/06/LLM1/">LLM 研究(1)</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Algorithm/" style="font-size: 16.67px;">Algorithm</a> <a href="/tags/Android/" style="font-size: 11.67px;">Android</a> <a href="/tags/Application-Android/" style="font-size: 10px;">Application Android</a> <a href="/tags/Application-Backend/" style="font-size: 11.67px;">Application Backend</a> <a href="/tags/Architecture/" style="font-size: 11.67px;">Architecture</a> <a href="/tags/Architecture-Car/" style="font-size: 10px;">Architecture Car</a> <a href="/tags/Blutooth/" style="font-size: 15px;">Blutooth</a> <a href="/tags/IT-Basics/" style="font-size: 20px;">IT-Basics</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/OS/" style="font-size: 18.33px;">OS</a> <a href="/tags/Security/" style="font-size: 13.33px;">Security</a> <a href="/tags/Tool/" style="font-size: 11.67px;">Tool</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2025 <a href="/">xidaokun</a>. All Rights Reserved</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

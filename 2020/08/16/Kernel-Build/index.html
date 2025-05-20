@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Kernel Build - xidaokun</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="xidaokun">
+    <meta property="og:title" content="Kernel Build"/>
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>xidaokun</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                
+            </div>
+        </div>
+        
+            <a target="_blank" rel="noopener" href="https://github.com/xidaokun">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Kernel Build</h2>
+            <div class="post-meta">
+                <time class="date">2020.08.16</time>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <blockquote>这篇文章上次修改于 1738 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
+        
+            <h3 id="查看内核"><a href="#查看内核" class="headerlink" title="查看内核"></a>查看内核</h3><p>启动模拟器，查看要编译的内核信息。</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><code class="hljs elixir">xidaokun<span class="hljs-variable">@ubuntu</span><span class="hljs-symbol">:~/WORKING_DIRECTORY/out/host/linux-x86/bin</span><span class="hljs-variable">$ </span>./adb shell<br><span class="hljs-symbol">generic_arm64:</span>/ <span class="hljs-comment"># cat /proc/version</span><br><span class="hljs-title class_">Linux</span> version <span class="hljs-number">4.4</span>.<span class="hljs-number">124</span>+ (android-build<span class="hljs-variable">@wphp12</span>.hot.corp.google.com) <br>(gcc version <span class="hljs-number">4.9</span>.x <span class="hljs-number">20150123</span> (prerelease) (<span class="hljs-title class_">GCC</span>) ) <span class="hljs-comment">#1 SMP PREEMPT Wed Jan 30 07:13:09 UTC 2019</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="拉源码"><a href="#拉源码" class="headerlink" title="拉源码"></a>拉源码</h3><figure class="highlight gams"><table><tr><td class="code"><pre><code class="hljs gams"><span class="hljs-meta"><span class="hljs-keyword">$mkdir</span> kernel</span><br><span class="hljs-meta"><span class="hljs-keyword">$cd</span> kernel</span><br><span class="hljs-meta"><span class="hljs-keyword">$git</span> clone https://aosp.tuna.tsinghua.edu.cn/android/kernel/goldfish.git</span><br><span class="hljs-meta"><span class="hljs-keyword">$git</span> branch -a</span><br><span class="hljs-meta"><span class="hljs-keyword">$git</span> checkout -b android-goldfish-3.18-dev remotes/origin/android-goldfish-3.18-dev</span><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="GNU和NDK"><a href="#GNU和NDK" class="headerlink" title="GNU和NDK"></a>GNU和NDK</h3><h5 id="1，下载地址"><a href="#1，下载地址" class="headerlink" title="1，下载地址"></a>1，下载地址</h5><p><a target="_blank" rel="noopener" href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-a/downloads">https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-a/downloads</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.android.google.cn/ndk/downloads">https://developer.android.google.cn/ndk/downloads</a></p>
+<h5 id="2，配置NDK"><a href="#2，配置NDK" class="headerlink" title="2，配置NDK"></a>2，配置NDK</h5><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">export PATH=<span class="hljs-regexp">/home/</span>xidaokun<span class="hljs-regexp">/android-ndk-r25/</span>toolchains<span class="hljs-regexp">/llvm/</span>prebuilt<span class="hljs-regexp">/linux-x86_64/</span>bin:<span class="hljs-variable">$PATH</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="3，配置源码"><a href="#3，配置源码" class="headerlink" title="3，配置源码"></a>3，配置源码</h5><figure class="highlight arduino"><table><tr><td class="code"><pre><code class="hljs arduino"><span class="hljs-keyword">export</span> PATH=/home/xidaokun/AOSP/prebuilts/gcc/linux-x86/x86/x86_64-linux-android<span class="hljs-number">-4.9</span>/bin:$PATH<br><span class="hljs-keyword">export</span> ARCH=x86_64<br><span class="hljs-keyword">export</span> CROSS_COMPILE=x86_64-linux-android-<br><span class="hljs-comment">// 查看googel提供的默认配置</span><br>find ./arch/x86/ -name *defconfig<br><span class="hljs-comment">// 开始配置，生成.config文件</span><br>make x86_64_ranchu_defconfig<br><span class="hljs-comment">//修改配置.config (为了可以gdb调试)</span><br>CONFIG_DEBUG_KERNEL=y<br>CONFIG_DEBUG_INFO=y<br>CONFIG_FRAME_POINTER=y<br>CONFIG_KGDB=y <br>CONFIG_DEBUG_RODATA=n<br>CONFIG_RANDOMIZE_BASE=n<br><span class="hljs-comment">//修改配置./arch/arm/mm/Kconfig（为了防止.config的修改被覆盖）</span><br>config DEBUG_RODATA<br>	<span class="hljs-type">bool</span> <span class="hljs-string">&quot;Make kernel text and rodata read-only&quot;</span><br>	depends on ARM_KERNMEM_PERMS<br>	<span class="hljs-keyword">default</span> n<br>	help<br><br><span class="hljs-comment">//修改配置b/arch/x86/Kconfig（为了防止.config的修改被覆盖）</span><br>config DEBUG_RODATA<br>	def_bool n<br></code></pre></td></tr></table></figure>
+
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><figure class="highlight gauss"><table><tr><td class="code"><pre><code class="hljs gauss"><span class="hljs-built_in">make</span> -j8<br></code></pre></td></tr></table></figure>
+<p>编译成功后会得到.&#x2F;goldfish&#x2F;arch&#x2F;arm64&#x2F;boot&#x2F;Image -show-kernel</p>
+<h3 id="模拟器运行"><a href="#模拟器运行" class="headerlink" title="模拟器运行"></a>模拟器运行</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-variable">$emulator</span> -avd Pixel_XL_API_28 -show-kernel -verbose -wipe-data -netfast -kernel <span class="hljs-built_in">arch</span>/x86/boot/bzImage -show-kernel  -qemu -s<br>或者<br>emulator -kernel ./goldfish/arch/x86_64/boot/bzImage -show-kernel<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2021/03/15/Operations-Research/">运筹学</a></li>
+                
+                
+                    <li>下一篇: <a href="/2020/08/15/AOSP-Build/">AOSP Build</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Android/" rel="tag">Android</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://avatars.githubusercontent.com/u/11327150?v=4" alt="xidaokun" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>xidaokun</h4>
+                <p>本站未注明转载的文章均为原创，并采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow">CC BY-NC-SA 4.0</a> 授权协议，<span style="color: #E91E63">转载请注明来源</span>，谢谢。</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-04/">Blutooth-04</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-03/">Blutooth-03</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-02/">Blutooth-02</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-01/">Blutooth-01</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/07/Blockchain-1/">Blockchain-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/03/06/LLM1/">LLM 研究(1)</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Algorithm/" style="font-size: 16.67px;">Algorithm</a> <a href="/tags/Android/" style="font-size: 11.67px;">Android</a> <a href="/tags/Application-Android/" style="font-size: 10px;">Application Android</a> <a href="/tags/Application-Backend/" style="font-size: 11.67px;">Application Backend</a> <a href="/tags/Architecture/" style="font-size: 11.67px;">Architecture</a> <a href="/tags/Architecture-Car/" style="font-size: 10px;">Architecture Car</a> <a href="/tags/Blutooth/" style="font-size: 15px;">Blutooth</a> <a href="/tags/IT-Basics/" style="font-size: 20px;">IT-Basics</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/OS/" style="font-size: 18.33px;">OS</a> <a href="/tags/Security/" style="font-size: 13.33px;">Security</a> <a href="/tags/Tool/" style="font-size: 11.67px;">Tool</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2025 <a href="/">xidaokun</a>. All Rights Reserved</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

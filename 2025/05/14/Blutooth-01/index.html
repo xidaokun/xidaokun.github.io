@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Blutooth-01 - xidaokun</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="xidaokun">
+    <meta property="og:title" content="Blutooth-01"/>
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>xidaokun</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                
+            </div>
+        </div>
+        
+            <a target="_blank" rel="noopener" href="https://github.com/xidaokun">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Blutooth-01</h2>
+            <div class="post-meta">
+                <time class="date">2025.05.14</time>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>本章为蓝牙协议简介篇。</p>
+<h3 id="蓝牙协议"><a href="#蓝牙协议" class="headerlink" title="蓝牙协议"></a>蓝牙协议</h3><p>蓝牙协议包括经典蓝牙（Classic Bluetooth）、低功耗蓝牙（BLE, Bluetooth Low Energy）和通用协议。</p>
+<h3 id="经典蓝牙协议（BR-EDR-AMP）"><a href="#经典蓝牙协议（BR-EDR-AMP）" class="headerlink" title="经典蓝牙协议（BR&#x2F;EDR + AMP）"></a>经典蓝牙协议（BR&#x2F;EDR + AMP）</h3><p> <strong>1. 控制器层（Controller Layer）</strong><br>物理层（PHY）：工作在2.4GHz ISM频段，使用跳频扩频（FHSS）技术。</p>
+<p>链路控制层（Baseband Layer）：管理物理链路，处理连接建立、数据包格式和加密。</p>
+<p>链路管理协议（LMP, Link Manager Protocol）：管理设备配对、功率控制、角色切换等。</p>
+<p> <strong>2. 主机层（Host Layer）</strong><br>主机控制器接口（HCI, Host Controller Interface）：连接蓝牙硬件（控制器）和软件（主机）的通信接口。</p>
+<p>逻辑链路控制与适配协议（L2CAP, Logical Link Control and Adaptation Protocol）：提供多路复用、数据分段和重组功能。</p>
+<p>服务发现协议（SDP, Service Discovery Protocol）：用于发现其他蓝牙设备提供的服务。</p>
+<p>RFCOMM（串口仿真协议）：模拟RS-232串口，支持传统串口应用（如蓝牙打印机）。</p>
+<p>OBEX（对象交换协议）：用于文件传输（FTP）和联系人同步。</p>
+<p>音频协议（如SCO&#x2F;eSCO）：支持语音通话（如蓝牙耳机）。</p>
+<p> <strong>3. 应用层（Profile Layer）</strong><br>A2DP（高级音频分发协议）：高质量音频传输（如音乐播放）。</p>
+<p>HFP（免提协议）：语音通话控制。</p>
+<p>HID（人机接口设备协议）：支持键盘、鼠标等外设。</p>
+<p>AVRCP（音视频远程控制协议）：设备远程控制。</p>
+<h3 id="低功耗蓝牙协议（BLE）"><a href="#低功耗蓝牙协议（BLE）" class="headerlink" title="低功耗蓝牙协议（BLE）"></a>低功耗蓝牙协议（BLE）</h3><p>BLE专为低功耗、间歇性数据传输设计（如物联网设备）。</p>
+<p> <strong>1. 控制器层（Controller Layer）</strong><br>物理层（PHY）：同样使用2.4GHz频段，但信道更少（40个）。</p>
+<p>链路层（Link Layer）：管理广播、扫描、连接建立和数据传输。</p>
+<p> <strong>2. 主机层（Host Layer）</strong><br>主机控制器接口（HCI）：与经典蓝牙类似，但针对BLE优化。</p>
+<p>逻辑链路控制与适配协议（L2CAP）：简化版，支持更小的数据包。</p>
+<p>属性协议（ATT, Attribute Protocol）：定义设备间数据交换的格式（如传感器数据）。</p>
+<p>通用属性规范（GATT, Generic Attribute Profile）：基于ATT，定义服务（Service）、特征（Characteristic）等数据结构。</p>
+<p>安全管理协议（SM, Security Manager）：处理配对和加密。</p>
+<p> <strong>3. 应用层</strong><br>通用访问规范（GAP, Generic Access Profile）：管理设备发现、连接和广播。</p>
+<p>自定义Profile：开发者可基于GATT定义特定服务（如心率监测、温度传感器）。</p>
+<h3 id="通用协议"><a href="#通用协议" class="headerlink" title="通用协议"></a>通用协议</h3><p>安全管理（Security）：包括配对、身份验证和数据加密（如AES-CCM）。<br>测试规范（Qualification）：蓝牙技术联盟（SIG）制定的认证标准（如QDID）。</p>
+<h3 id="经典蓝牙-VS-BLE"><a href="#经典蓝牙-VS-BLE" class="headerlink" title="经典蓝牙 VS BLE"></a>经典蓝牙 VS BLE</h3><table>
+<thead>
+<tr>
+<th><strong>特性</strong></th>
+<th><strong>经典蓝牙（BR&#x2F;EDR）</strong></th>
+<th><strong>低功耗蓝牙（BLE）</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>射频功耗</strong></td>
+<td>较高（持续连接）</td>
+<td>极低（短时突发传输）</td>
+</tr>
+<tr>
+<td><strong>信道数量</strong></td>
+<td>79个（1 MHz间隔）</td>
+<td>40个（2 MHz间隔）</td>
+</tr>
+<tr>
+<td><strong>连接建立时间</strong></td>
+<td>较慢（~100ms）</td>
+<td>极快（~3ms）</td>
+</tr>
+<tr>
+<td><strong>数据速率</strong></td>
+<td>1-3 Mbps（EDR模式）</td>
+<td>1-2 Mbps（BLE 5.0支持2M PHY）</td>
+</tr>
+<tr>
+<td><strong>硬件复杂度</strong></td>
+<td>较高（需支持复杂协议栈）</td>
+<td>简化（更少的状态机）</td>
+</tr>
+</tbody></table>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2025/05/14/Blutooth-02/">Blutooth-02</a></li>
+                
+                
+                    <li>下一篇: <a href="/2025/01/07/Blockchain-1/">Blockchain-1</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Blutooth/" rel="tag">Blutooth</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://avatars.githubusercontent.com/u/11327150?v=4" alt="xidaokun" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>xidaokun</h4>
+                <p>本站未注明转载的文章均为原创，并采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow">CC BY-NC-SA 4.0</a> 授权协议，<span style="color: #E91E63">转载请注明来源</span>，谢谢。</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-04/">Blutooth-04</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-03/">Blutooth-03</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-02/">Blutooth-02</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-01/">Blutooth-01</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/07/Blockchain-1/">Blockchain-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/03/06/LLM1/">LLM 研究(1)</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Algorithm/" style="font-size: 16.67px;">Algorithm</a> <a href="/tags/Android/" style="font-size: 11.67px;">Android</a> <a href="/tags/Application-Android/" style="font-size: 10px;">Application Android</a> <a href="/tags/Application-Backend/" style="font-size: 11.67px;">Application Backend</a> <a href="/tags/Architecture/" style="font-size: 11.67px;">Architecture</a> <a href="/tags/Architecture-Car/" style="font-size: 10px;">Architecture Car</a> <a href="/tags/Blutooth/" style="font-size: 15px;">Blutooth</a> <a href="/tags/IT-Basics/" style="font-size: 20px;">IT-Basics</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/OS/" style="font-size: 18.33px;">OS</a> <a href="/tags/Security/" style="font-size: 13.33px;">Security</a> <a href="/tags/Tool/" style="font-size: 11.67px;">Tool</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2025 <a href="/">xidaokun</a>. All Rights Reserved</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

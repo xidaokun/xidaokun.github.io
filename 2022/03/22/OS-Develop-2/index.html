@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>OS Develop 2 - xidaokun</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="xidaokun">
+    <meta property="og:title" content="OS Develop 2"/>
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>xidaokun</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                
+            </div>
+        </div>
+        
+            <a target="_blank" rel="noopener" href="https://github.com/xidaokun">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>OS Develop 2</h2>
+            <div class="post-meta">
+                <time class="date">2022.03.22</time>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <blockquote>这篇文章上次修改于 1155 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
+        
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>本章介绍汇编语言。</p>
+<h3 id="标号"><a href="#标号" class="headerlink" title="标号"></a>标号</h3><p>标号是充当指令或数据位置标记的标识符。</p>
+<ul>
+<li><p>数据标号</p>
+<blockquote><p>count DW 100 ;定义一个名为count的变量a</p>
+</blockquote>
+</li>
+<li><p>代码标号<br>以冒号结尾，表示一个位置，可以用于跳转。</p>
+<blockquote><p>loop:<br>    jmp loop</p>
+</blockquote></li>
+</ul>
+<h3 id="伪指令"><a href="#伪指令" class="headerlink" title="伪指令"></a>伪指令</h3><p>伪指令不是真正的指令，它是由NASM的编译器提供支持，伪指令在编译的时候执行。</p>
+<ul>
+<li>Dx族</li>
+<li>Resx族</li>
+<li>equ</li>
+<li>times</li>
+<li>vstar &amp; org</li>
+<li>incbin</li>
+</ul>
+<h3 id="7种数据Size"><a href="#7种数据Size" class="headerlink" title="7种数据Size"></a>7种数据Size</h3><ul>
+<li>byte ： 8 位</li>
+<li>word ： 16 位</li>
+<li>dword ： 32 位</li>
+<li>qword ： 64 位</li>
+<li>tword ： 80 位</li>
+<li>oword ： 128 位</li>
+<li>yword ： 256 位</li>
+</ul>
+<h3 id="Dx族"><a href="#Dx族" class="headerlink" title="Dx族"></a>Dx族</h3><p>Dx族用来在内存中，顺序定义初始化数据。<br>nasm 定义了用于初始化上面 7 种 size 的 db 家族，它们用于定义初化常量值。</p>
+<ul>
+<li>db : define byte</li>
+<li>dw ：define word</li>
+<li>dd ：define doubleword</li>
+<li>dq ：define quadword</li>
+<li>dt ：define tword</li>
+<li>do ：define oword</li>
+<li>dy ：define yword</li>
+</ul>
+<p>例如：</p>
+<blockquote><p>db    0x55                ; just the byte 0x55<br>db    0x55,0x56,0x57      ; three bytes in succession<br>db    ‘a’,0x55            ; character constants are OK<br>db    ‘hello’,13,10,’$’   ; so are string constants<br>dw    0x1234              ; 0x34 0x12<br>dw    ‘a’                 ; 0x61 0x00 (it’s just a number)<br>dw    ‘ab’                ; 0x61 0x62 (character constant)<br>dw    ‘abc’               ; 0x61 0x62 0x63 0x00 (string)<br>dd    0x12345678          ; 0x78 0x56 0x34 0x12<br>dd    1.234567e20         ; floating-point constant<br>dq    0x123456789abcdef0  ; eight byte constant<br>dq    1.234567e20         ; double-precision float<br>dt    1.234567e20         ; extended-precision float</p>
+</blockquote>
+
+<h3 id="Resx族"><a href="#Resx族" class="headerlink" title="Resx族"></a>Resx族</h3><p>这类伪指令，用来定义非初始化数据，非初始化数据存放在bass section中。</p>
+<ul>
+<li>resb ：reserve byte</li>
+<li>resw ：reserve word</li>
+<li>resd ：reserve doubword</li>
+<li>resq ：reserve quadword</li>
+<li>rest ：reserve tword</li>
+<li>reso ：reserve oword</li>
+<li>resy ：reserve yword</li>
+</ul>
+<p>例如：</p>
+<blockquote><p>buffer:         resb    64              ; reserve 64 bytes<br>wordvar:        resw    1               ; reserve a word<br>realarray       resq    10              ; array of ten reals<br>ymmval:         resy    1               ; one YMM register</p>
+</blockquote>
+
+
+<h3 id="变量定义"><a href="#变量定义" class="headerlink" title="变量定义"></a>变量定义</h3><p>【变量名】 变量类型  表达式<br>例如：</p>
+<blockquote><p>a db 1,2,3,4,5<br>db 7,8,9,10 ;非变量定义，只定义数据<br>b dw 123,123,123<br>c db ‘hello, world!’</p>
+</blockquote>
+
+<p>上面定义的数据都是顺序存放在内存中的，所以虽然第二行的数据没有定义名字，但是因为他紧跟在a 数组之后 b数组之前，所以使用a+5,或者 b-1 也是可以访问的，只是需要注意的是数据类型和 大端小端的问题。<br>声明的变量代表后面数据的地址，例如c是后面字符串的首地址，如果要使用，需要用中括号：</p>
+<blockquote><p>mov ax, [c]</p>
+</blockquote>
+
+<h3 id="equ"><a href="#equ" class="headerlink" title="equ"></a>equ</h3><p>它的作用和#define相同，它并不占用内存，在编译之后，它将替换被调用的地方，例如：</p>
+<blockquote><p>num equ 110<br>mov ax, num<br>mov bx, num<br>mov cx, num</p>
+</blockquote>
+
+<p>编译后：</p>
+<blockquote><p>mov ax, 110<br>mov bx, 110<br>mov cx, 110</p>
+</blockquote>
+
+<h3 id="和"><a href="#和" class="headerlink" title="$和$$"></a>$和$$</h3><p>$表示当前行的汇编地址。<br>$$表示当前程序的起始汇编地址。</p>
+<h3 id="times"><a href="#times" class="headerlink" title="times"></a>times</h3><p>后面指令重复次数。</p>
+<blockquote><p>buffer: db ‘hello, world’<br>times 64-$+buffer db ‘’ ;补齐64字节</p>
+</blockquote>
+
+<h3 id="incbin"><a href="#incbin" class="headerlink" title="incbin"></a>incbin</h3><p>包含binary文件。例如</p>
+<blockquote><p>ncbin “file.dat” ; include the whole file<br>incbin “file.dat”,1024 ; skip the first 1024 bytes<br>incbin “file.dat”,1024,512 ; skip the first 1024, and<br>; actually include at most 512</p>
+</blockquote>
+
+<h3 id="vstart-org"><a href="#vstart-org" class="headerlink" title="vstart &amp; org"></a>vstart &amp; org</h3><p>org本身不能决定程序被加载到什么位置，它只是告诉编译器，我的程序将来会被加载到某个位置，请编译器在链接时按照org给出的值，调整数据引用的地址(org值+程序内数据引用偏移地址)；<br>比如<code>org 0x7c00</code>，BIOS会将mbr程序加载到<code>0x7c00</code>位置，那么在mbr中，为了正确寻址，就要指定这个偏移量。</p>
+<h3 id="mov"><a href="#mov" class="headerlink" title="mov"></a>mov</h3><p>格式：</p>
+<blockquote><p>mov 位宽 目的操作数，源操作数</p>
+</blockquote>
+
+<p>目的操作数必需是一个容器，如内存单元、寄存器；源操作数可以是一个立即数，也可以是一个容器。</p>
+<p>举例：</p>
+<blockquote><p>mov byte [0x00],’2’</p>
+</blockquote>
+
+<h3 id="loop"><a href="#loop" class="headerlink" title="loop"></a>loop</h3><p>Loop指令需要和cx寄存器配合使用, 用于循环操作, 类似于高级语言中的for, while等。<br>cx存放的是循环次数，循环一次，cx中的值减1，当cx中的值大于0时，执行loop循环。</p>
+<blockquote><p>  mov cx, 11<br>s:<br>  add ax, ax<br>  loop s</p>
+</blockquote>
+
+<h3 id="jmp"><a href="#jmp" class="headerlink" title="jmp"></a>jmp</h3><p>jmp 是无条件转移指令，无条件转移指令可转到内存中任何程序段，它可以只修改IP，也可以同时修改CS和IP。<br>1，短程转移<br>指令格式：JMP SHORT OPRD<br>语法格式：JMP 地址标号 ；（IP）&#x3D;（IP）+8位位移量<br>指令功能：OPRD为转移地址的标号，指令中的SHORT规定了OPRD为有符号的8位二进制数，OPRD为转移地址的偏移量。该指令将程序执行的顺序转移到由（IP）+OPRD形成的新的程序执行的目标地址，从而实现程序的转移。转移的目标地址OPRD在指令中可以直接使用标号地址，但要求转移的目标地址的范围只能在JMP指令所处地址的－128～+127字节范围之内，如超出该范围，汇编时出错。</p>
+<p>2，近程转移<br>指令格式：JMP NEAR PTR OPRD<br>语法格式：JMP 地址标号 ；（IP）&#x3D;（IP）+16位位移量<br>指令功能：与短程转移的功能和要求相同，不同之处是近程转移的OPRD为有符号的16位二进制数，指令将程序执行的顺序转移到由（IP）+OPRD形成的新的程序执行的目标地址，转移的目标地址的范围只能在JMP指令所处地址的－32768～+32767字节范围之内，如超出该范围，汇编时出错。使用该指令时NEAR可省略。</p>
+<p>3，段间转移<br>指令格式：JMP FAR PTR OPRD<br>语法格式：JMP 地址标号 ；（IP）&#x3D; 新的偏移地址, ；（CS）&#x3D; 新的代码段地址<br>指令功能：指令中用FAR PTR规定了该指令为段间的转移，OPRD为目的地址的标号，目的地址与JMP指令所在地址不在同一段内。执行该指令时要修改CS和IP的内容，将OPRD所在段的段地址送CS中，OPRD的段内偏移地址送IP中。</p>
+<p>4，段内间转移<br>指令格式：JMP WORD PTR OPRD<br>语法格式：JMP reg16&#x2F;mem ；（IP）&#x3D; 新的偏移地址<br>指令功能：与短程转移的功能和要求相同，不同之处是段内间接转移的OPRD 可以是除立即数外的任何寄存或存储器寻址方式，转移的目标地址由OPRD的内容确定。</p>
+<p>5，段间间接转移<br>指令格式：JMP DWORD PTR OPRD<br>语法格式：JMP mem32<br>指令功能：指令中用DWORD PTR规定了该指令为段间间接转移，OPRD只能是存储器寻址方式。执行该指令时将寻址到的内存单元的第一个字送入IP中，第二个字送入CS中。</p>
+<h3 id="条件转移"><a href="#条件转移" class="headerlink" title="条件转移"></a>条件转移</h3><img src="/2022/03/22/OS-Develop-2/jmp_condition.png" class="" title="flag registor">
+
+<h3 id="call-ret"><a href="#call-ret" class="headerlink" title="call &amp; ret"></a>call &amp; ret</h3><p>在高级语言中，常有主程序调用其他子程序，子程序还可以调用子程序。<br>call指令可以实现调用一个子程序，在子程序里使用ret指令结束子程序的执行并返回主程序（类比C语言中的main函数调用cube函数进行理解），主程序继续往下执行。</p>
+<blockquote><p>mov ax,0<br>call s     ;s是标号，执行call后，执行s标号所在的子程序<br>mov ax,4c00h<br>int 21h</p>
+<p>s:add ax,1   ;标号所在子程序<br>  mov bx,10<br>  ret        ;子程序执行完后，返回主程序</p>
+</blockquote>
+
+<h3 id="push-pop"><a href="#push-pop" class="headerlink" title="push &amp; pop"></a>push &amp; pop</h3><p>push和pop是用来操作栈的2个指令；push将一个寄存器中的数据入栈，pop出栈用一个寄存器接收数据；相关的寄存器<code>SS:SP</code>。<br>举例：<br>mov ax 123H<br>push ax 的执行，由以下两步完成。<br>(1) SP &#x3D; SP - 2, SS:SP 指向当前栈顶前面的单元，以当前栈顶前面的单元为新的栈顶；<br>(2) 将ax中的内容送入SS:SP 指向的内存单元处，SS:SP此时指向新栈顶。</p>
+<h3 id="int"><a href="#int" class="headerlink" title="int"></a>int</h3><p>int指令是X86汇编语言中最重要的指令之一。它的作用是引发中断，调用“中断例程”（interrupt routine）</p>
+<p>指令格式：</p>
+<blockquote><p>int n ;n是中端号</p>
+</blockquote>
+
+<p>指令执行过程：</p>
+<blockquote><p>1，取中断类型码n；<br>2，标志寄存器入栈（pushf），IF&#x3D;0，TF&#x3D;0（重置中断标志位）；<br>3，CS、IP入栈；<br>4，查中断向量表， (IP)&#x3D;(n*4)，(CS)&#x3D;(n*4+2)。</p>
+</blockquote>
+
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2022/03/28/OS-Develop-3/">OS Develop 3</a></li>
+                
+                
+                    <li>下一篇: <a href="/2022/03/17/OS-Develop-1/">OS Develop 1</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/IT-Basics/" rel="tag">IT-Basics</a><a class="-none-link" href="/tags/OS/" rel="tag">OS</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://avatars.githubusercontent.com/u/11327150?v=4" alt="xidaokun" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>xidaokun</h4>
+                <p>本站未注明转载的文章均为原创，并采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow">CC BY-NC-SA 4.0</a> 授权协议，<span style="color: #E91E63">转载请注明来源</span>，谢谢。</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-04/">Blutooth-04</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-03/">Blutooth-03</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-02/">Blutooth-02</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-01/">Blutooth-01</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/07/Blockchain-1/">Blockchain-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/03/06/LLM1/">LLM 研究(1)</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Algorithm/" style="font-size: 16.67px;">Algorithm</a> <a href="/tags/Android/" style="font-size: 11.67px;">Android</a> <a href="/tags/Application-Android/" style="font-size: 10px;">Application Android</a> <a href="/tags/Application-Backend/" style="font-size: 11.67px;">Application Backend</a> <a href="/tags/Architecture/" style="font-size: 11.67px;">Architecture</a> <a href="/tags/Architecture-Car/" style="font-size: 10px;">Architecture Car</a> <a href="/tags/Blutooth/" style="font-size: 15px;">Blutooth</a> <a href="/tags/IT-Basics/" style="font-size: 20px;">IT-Basics</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/OS/" style="font-size: 18.33px;">OS</a> <a href="/tags/Security/" style="font-size: 13.33px;">Security</a> <a href="/tags/Tool/" style="font-size: 11.67px;">Tool</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2025 <a href="/">xidaokun</a>. All Rights Reserved</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

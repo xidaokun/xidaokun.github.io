@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Blutooth-03 - xidaokun</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="xidaokun">
+    <meta property="og:title" content="Blutooth-03"/>
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>xidaokun</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                
+            </div>
+        </div>
+        
+            <a target="_blank" rel="noopener" href="https://github.com/xidaokun">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Blutooth-03</h2>
+            <div class="post-meta">
+                <time class="date">2025.05.20</time>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>本章为蓝牙版本简介。</p>
+<h3 id="蓝牙版本演进"><a href="#蓝牙版本演进" class="headerlink" title="蓝牙版本演进"></a>蓝牙版本演进</h3><table>
+<thead>
+<tr>
+<th><strong>版本</strong></th>
+<th><strong>发布时间</strong></th>
+<th><strong>核心特性</strong></th>
+<th><strong>典型应用场景</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>蓝牙1.0-1.2</strong></td>
+<td>1999-2003</td>
+<td>- 基础BR（Basic Rate）模式，速率~1 Mbps<br>- 抗干扰能力弱（无AFH）</td>
+<td>早期无线耳机、文件传输</td>
+</tr>
+<tr>
+<td><strong>蓝牙2.0+EDR</strong></td>
+<td>2004</td>
+<td>- 增强数据速率（EDR，2-3 Mbps）<br>- 支持AFH（自适应跳频）抗WiFi干扰</td>
+<td>立体声音频、高速数据传输</td>
+</tr>
+<tr>
+<td><strong>蓝牙3.0+HS</strong></td>
+<td>2009</td>
+<td>- 引入高速模式（HS，通过WiFi通道传输，理论24 Mbps）<br>- 功耗较高，实际应用少</td>
+<td>大文件传输（如视频）</td>
+</tr>
+<tr>
+<td><strong>蓝牙4.0</strong></td>
+<td>2010</td>
+<td><strong>划时代更新</strong>：引入低功耗蓝牙（BLE）<br>- 双模架构（经典蓝牙+BLE）<br>- 功耗降低90%</td>
+<td>可穿戴设备、传感器（IoT雏形）</td>
+</tr>
+<tr>
+<td><strong>蓝牙4.1</strong></td>
+<td>2013</td>
+<td>- 提升BLE连接稳定性<br>- 支持IPv6（为物联网准备）</td>
+<td>智能家居设备</td>
+</tr>
+<tr>
+<td><strong>蓝牙4.2</strong></td>
+<td>2014</td>
+<td>- BLE数据包容量提升10倍<br>- 隐私性增强（Secure Connections）</td>
+<td>医疗设备、安全支付</td>
+</tr>
+<tr>
+<td><strong>蓝牙5.0</strong></td>
+<td>2016</td>
+<td><strong>BLE重大升级</strong>：<br>- 2倍速度（2M PHY，2 Mbps）<br>- 4倍距离（Coded PHY，300m）<br>- 广播数据量提升8倍</td>
+<td>室内定位（Beacon）、长距离传感器</td>
+</tr>
+<tr>
+<td><strong>蓝牙5.1</strong></td>
+<td>2019</td>
+<td>- 新增测向功能（AoA&#x2F;AoD）<br>- 厘米级定位精度</td>
+<td>室内导航、资产追踪</td>
+</tr>
+<tr>
+<td><strong>蓝牙5.2</strong></td>
+<td>2020</td>
+<td><strong>LE Audio核心</strong>：<br>- LC3音频编码（低功耗高音质）<br>- 多设备音频同步</td>
+<td>TWS耳机、助听器</td>
+</tr>
+<tr>
+<td><strong>蓝牙5.3</strong></td>
+<td>2021</td>
+<td>- 优化BLE连接稳定性与功耗<br>- 加密算法增强（HCI安全模式）</td>
+<td>工业物联网、医疗设备</td>
+</tr>
+<tr>
+<td><strong>蓝牙5.4</strong></td>
+<td>2023</td>
+<td>- 新增PAwR（带响应的周期性广播）<br>- 提升大规模设备组网能力</td>
+<td>电子价签、传感器网络</td>
+</tr>
+</tbody></table>
+<h3 id="兼容性说明"><a href="#兼容性说明" class="headerlink" title="兼容性说明"></a><strong>兼容性说明</strong></h3><ul>
+<li><strong>向下兼容</strong>：蓝牙5.x设备可连接4.x&#x2F;3.x设备，但功能受限（如BLE设备无法使用经典蓝牙协议）。</li>
+<li><strong>双模芯片</strong>：主流芯片（如Nordic nRF5340、ESP32）支持同时运行经典蓝牙和BLE。</li>
+</ul>
+<h3 id="未来趋势"><a href="#未来趋势" class="headerlink" title="未来趋势"></a><strong>未来趋势</strong></h3><ol>
+<li><strong>LE Audio普及</strong>：取代传统经典蓝牙音频，支持更低功耗的TWS耳机和助听器。</li>
+<li><strong>Mesh网络扩展</strong>：基于BLE 5.0的Mesh协议，用于智能家居&#x2F;楼宇自动化。</li>
+<li><strong>与UWB融合</strong>：蓝牙5.1+与UWB（超宽带）结合，实现高精度定位（如苹果AirTag）。</li>
+</ol>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2025/05/20/Blutooth-04/">Blutooth-04</a></li>
+                
+                
+                    <li>下一篇: <a href="/2025/05/14/Blutooth-02/">Blutooth-02</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Blutooth/" rel="tag">Blutooth</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://avatars.githubusercontent.com/u/11327150?v=4" alt="xidaokun" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>xidaokun</h4>
+                <p>本站未注明转载的文章均为原创，并采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow">CC BY-NC-SA 4.0</a> 授权协议，<span style="color: #E91E63">转载请注明来源</span>，谢谢。</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-04/">Blutooth-04</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-03/">Blutooth-03</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-02/">Blutooth-02</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-01/">Blutooth-01</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/07/Blockchain-1/">Blockchain-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/03/06/LLM1/">LLM 研究(1)</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Algorithm/" style="font-size: 16.67px;">Algorithm</a> <a href="/tags/Android/" style="font-size: 11.67px;">Android</a> <a href="/tags/Application-Android/" style="font-size: 10px;">Application Android</a> <a href="/tags/Application-Backend/" style="font-size: 11.67px;">Application Backend</a> <a href="/tags/Architecture/" style="font-size: 11.67px;">Architecture</a> <a href="/tags/Architecture-Car/" style="font-size: 10px;">Architecture Car</a> <a href="/tags/Blutooth/" style="font-size: 15px;">Blutooth</a> <a href="/tags/IT-Basics/" style="font-size: 20px;">IT-Basics</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/OS/" style="font-size: 18.33px;">OS</a> <a href="/tags/Security/" style="font-size: 13.33px;">Security</a> <a href="/tags/Tool/" style="font-size: 11.67px;">Tool</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2025 <a href="/">xidaokun</a>. All Rights Reserved</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

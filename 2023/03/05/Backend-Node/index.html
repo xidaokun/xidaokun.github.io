@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Storage Container - xidaokun</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="xidaokun">
+    <meta property="og:title" content="Storage Container"/>
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>xidaokun</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                
+            </div>
+        </div>
+        
+            <a target="_blank" rel="noopener" href="https://github.com/xidaokun">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Storage Container</h2>
+            <div class="post-meta">
+                <time class="date">2023.03.05</time>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <blockquote>这篇文章上次修改于 807 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
+        
+            <h3 id="1，简介"><a href="#1，简介" class="headerlink" title="1，简介"></a>1，简介</h3><p>后台服务项目，可以存储用户的文件和数据，并将文件同步到第三方云盘。</p>
+<h3 id="2，功能"><a href="#2，功能" class="headerlink" title="2，功能"></a>2，功能</h3><ul>
+<li><p>手机号注册&#x2F;手机号登录</p>
+</li>
+<li><p>OAuth授权</p>
+</li>
+<li><p>账户登录</p>
+</li>
+<li><p>密码修改</p>
+</li>
+<li><p>API鉴权</p>
+</li>
+<li><p>数据管理</p>
+</li>
+<li><p>文件管理</p>
+</li>
+<li><p>个人云盘数据同步</p>
+</li>
+<li><p>数字货币fee(TODO)</p>
+</li>
+</ul>
+<h3 id="3，部署"><a href="#3，部署" class="headerlink" title="3，部署"></a>3，部署</h3><p>3.1 clone</p>
+<blockquote><p>$git clone <a target="_blank" rel="noopener" href="https://github.com/xidaokun/Cary.Project.Python.Backend.git">https://github.com/xidaokun/Cary.Project.Python.Backend.git</a></p>
+</blockquote>
+
+<p>3.2 run</p>
+<blockquote><p>$.&#x2F;run.sh start</p>
+</blockquote>
+
+<h3 id="4，APIS"><a href="#4，APIS" class="headerlink" title="4，APIS"></a>4，APIS</h3><h5 id="4-1-User-manager"><a href="#4-1-User-manager" class="headerlink" title="4.1 User manager"></a>4.1 User manager</h5><p>1.register user</p>
+<blockquote><p>$curl -d ‘{“name”:”cary”, “password”:”123456”, “phone”:”1234567890”, “code”:1111}’ -H ‘Content-Type: application&#x2F;json’ <a target="_blank" rel="noopener" href="http://127.0.0.1:5000/api/v1/user/register">http://127.0.0.1:5000/api/v1/user/register</a></p>
+</blockquote>
+
+<blockquote><p>{ “_status”: “OK” }</p>
+</blockquote>
+
+<p>2.user login</p>
+<blockquote><p>$curl -d ‘{“name”:”cary”, “password”:”123456”}’ -H ‘Content-Type: application&#x2F;json’ <a target="_blank" rel="noopener" href="http://127.0.0.1:5000/api/v1/user/login">http://127.0.0.1:5000/api/v1/user/login</a></p>
+</blockquote>
+
+<blockquote><p>{ “_status”: “OK”, “access_token”: “eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.<br>eyJpc3MiOiJiYWNrZW5kIiwiaWF0IjoxNjE5NzA1MTg2LCJleHAiOjE2MTk3MDU0ODYs<br>ImF1ZCI6ImNsaWVudCIsInN1YiI6IjYwOGFiZDFjOWYzOTRmN2Q3ZjAxOWY5NSIsIm5hbWUiOiJj<br>YXJ5Iiwic2NvcGVzIjpbIm9wZW4iXX0.3wirR5I5UCUDmuCi96adm3SctPEOFPYQKf9gcAF9Ib8”, “user_id”: “608abd1c9f394f7d7f019f95”, “user_name”: “cary” }</p>
+</blockquote>
+
+<p>3.verification code</p>
+<blockquote><p>$curl -d ‘{“phone”:”1234567890”}’ -H ‘Content-Type: application&#x2F;json’ <a target="_blank" rel="noopener" href="http://127.0.0.1:5000/api/v1/user/verification_code">http://127.0.0.1:5000/api/v1/user/verification_code</a></p>
+</blockquote>
+
+<p>4.change password</p>
+<blockquote><p>$curl -d ‘{“password”:”12345”}’ -H “If-Match: token JWT_TOKEN” -H ‘Content-Type: application&#x2F;json’ <a target="_blank" rel="noopener" href="http://127.0.0.1:5000/api/v1/user/change_pwd">http://127.0.0.1:5000/api/v1/user/change_pwd</a></p>
+</blockquote>
+
+<h5 id="4-2-OAuth"><a href="#4-2-OAuth" class="headerlink" title="4.2 OAuth"></a>4.2 OAuth</h5><blockquote><p>$curl <a target="_blank" rel="noopener" href="http://127.0.0.1:5000/api/v1/user/oauth?code=your_access_code&type=github&redirect_uri=http://example.com&state=xyz">http://127.0.0.1:5000/api/v1/user/oauth?code=your_access_code&amp;type=github&amp;redirect_uri=http://example.com&amp;state=xyz</a></p>
+</blockquote>
+
+<blockquote><p>{ “_status”: “OK”, “access_token”: “eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.<br>eyJpc3MiOiJiYWNrZW5kIiwiaWF0IjoxNjE5NzA1MTg2LCJleHAiOjE2MTk3MDU0ODYsImF1<br>ZCI6ImNsaWVudCIsInN1YiI6IjYwOGFiZDFjOWYzOTRmN2Q3ZjAxOWY5NSIsIm5hbWUiOiJjY<br>XJ5Iiwic2NvcGVzIjpbIm9wZW4iXX0.3wirR5I5UCUDmuCi96adm3SctPEOFPYQKf9gcAF9Ib8”, “user_id”: “608abd1c9f394f7d7f019f95”, “user_name”: “cary” }</p>
+</blockquote>
+
+<h5 id="4-3-File-operation"><a href="#4-3-File-operation" class="headerlink" title="4.3 File operation"></a>4.3 File operation</h5><p>1.upload file</p>
+<blockquote><p>$curl -H “If-Match: token JWT_TOKEN” <a target="_blank" rel="noopener" href="http://127.0.0.1:5000/api/v1/file/upload/test.txt">http://127.0.0.1:5000/api/v1/file/upload/test.txt</a></p>
+</blockquote>
+
+<p>2.download file</p>
+<blockquote><p>$curl -i -H “If-Match: token JWT_TOKEN” <a target="_blank" rel="noopener" href="http://127.0.0.1:5000/api/v1/file/download?path=test.txt">http://127.0.0.1:5000/api/v1/file/download?path=test.txt</a></p>
+</blockquote>
+
+<p>3.list files</p>
+<blockquote><p>$curl -i -H “If-Match: token JWT_TOKEN” <a target="_blank" rel="noopener" href="http://127.0.0.1:5000/api/v1/file/list">http://127.0.0.1:5000/api/v1/file/list</a></p>
+</blockquote>
+
+<p>4.get file information</p>
+<blockquote><p>$curl -i -H “If-Match: token JWT_TOKEN” <a target="_blank" rel="noopener" href="http://127.0.0.1:5000/api/v1/file/information">http://127.0.0.1:5000/api/v1/file/information</a></p>
+</blockquote>
+
+<p>5.delete file</p>
+<blockquote><p>curl -d ‘{“file”:”test.txt”}’ -H “If-Match: token JWT_TOKEN” -H ‘Content-Type: application&#x2F;json’ <a target="_blank" rel="noopener" href="http://127.0.0.1:5000/api/v1/file/delete">http://127.0.0.1:5000/api/v1/file/delete</a></p>
+</blockquote>
+
+<h5 id="4-4-Database-operation"><a href="#4-4-Database-operation" class="headerlink" title="4.4 Database operation"></a>4.4 Database operation</h5><p>1.create collection</p>
+<blockquote><p>$curl -d ‘{“collection”:”workers”}’ -H “If-Match: token JWT_TOKEN” -H ‘Content-Type: application&#x2F;json’ <a target="_blank" rel="noopener" href="http://127.0.0.1:5000/api/v1/db/create_col">http://127.0.0.1:5000/api/v1/db/create_col</a></p>
+</blockquote>
+
+<p>2.insert one&#x2F;many document</p>
+<blockquote><p>$curl -d ‘{“collection”:”workers”,”document”:{“worker”:”cary”,”title”:”developer”},”options”:{“bypass_document_validation”:false}}’ -H “If-Match: token JWT_TOKEN” -H ‘Content-Type: application&#x2F;json’ <a target="_blank" rel="noopener" href="http://127.0.0.1:5000/api/v1/db/insert_one">http://127.0.0.1:5000/api/v1/db/insert_one</a></p>
+</blockquote>
+
+<p>3.update one&#x2F;many document</p>
+<blockquote><p>$curl -d ‘{“collection”:”workers”,”filter”:{“worker”:”cary”,},”update”:{“$set”:{“author”:”cary”,”title”:”manger”}},”options”:{“upsert”:true,”bypass_document_validation”:false}}’ -H “If-Match: token JWT_TOKEN” -H ‘Content-Type: application&#x2F;json’ <a target="_blank" rel="noopener" href="http://127.0.0.1:5000/api/v1/db/update_one">http://127.0.0.1:5000/api/v1/db/update_one</a></p>
+</blockquote>
+
+<p>4.count documents</p>
+<blockquote><p>$curl -d ‘{“collection”:”workers”,”filter”:{“worker”:”cary”,},”options”:{“skip”:0,”limit”:10,”maxTimeMS”:1000000000}}’ -H “If-Match: token JWT_TOKEN” -H ‘Content-Type: application&#x2F;json’ <a target="_blank" rel="noopener" href="http://127.0.0.1:5000/api/v1/db/count_documents">http://127.0.0.1:5000/api/v1/db/count_documents</a></p>
+</blockquote>
+
+<p>5.delete one&#x2F;many documents</p>
+<blockquote><p>$curl -d ‘{“collection”:”workers”,”filter”:{“worker”:”cary”,}}’ -H “If-Match: token JWT_TOKEN” -H ‘Content-Type: application&#x2F;json’ <a target="_blank" rel="noopener" href="http://127.0.0.1:5000/api/v1/db/delete_one">http://127.0.0.1:5000/api/v1/db/delete_one</a></p>
+</blockquote>
+
+<p>6.delete collection</p>
+<blockquote><p>$curl -d ‘{“collection”:”workers”}’ -H “If-Match: token JWT_TOKEN” -H ‘Content-Type: application&#x2F;json’ <a target="_blank" rel="noopener" href="http://127.0.0.1:5000/api/v1/db/delete_col">http://127.0.0.1:5000/api/v1/db/delete_col</a></p>
+</blockquote>
+
+
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2023/04/13/TSS-Server/">语音合成应用</a></li>
+                
+                
+                    <li>下一篇: <a href="/2023/01/08/PKI-2/">PKI 2</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Application-Backend/" rel="tag">Application Backend</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://avatars.githubusercontent.com/u/11327150?v=4" alt="xidaokun" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>xidaokun</h4>
+                <p>本站未注明转载的文章均为原创，并采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow">CC BY-NC-SA 4.0</a> 授权协议，<span style="color: #E91E63">转载请注明来源</span>，谢谢。</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-04/">Blutooth-04</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-03/">Blutooth-03</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-02/">Blutooth-02</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-01/">Blutooth-01</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/07/Blockchain-1/">Blockchain-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/03/06/LLM1/">LLM 研究(1)</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Algorithm/" style="font-size: 16.67px;">Algorithm</a> <a href="/tags/Android/" style="font-size: 11.67px;">Android</a> <a href="/tags/Application-Android/" style="font-size: 10px;">Application Android</a> <a href="/tags/Application-Backend/" style="font-size: 11.67px;">Application Backend</a> <a href="/tags/Architecture/" style="font-size: 11.67px;">Architecture</a> <a href="/tags/Architecture-Car/" style="font-size: 10px;">Architecture Car</a> <a href="/tags/Blutooth/" style="font-size: 15px;">Blutooth</a> <a href="/tags/IT-Basics/" style="font-size: 20px;">IT-Basics</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/OS/" style="font-size: 18.33px;">OS</a> <a href="/tags/Security/" style="font-size: 13.33px;">Security</a> <a href="/tags/Tool/" style="font-size: 11.67px;">Tool</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2025 <a href="/">xidaokun</a>. All Rights Reserved</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

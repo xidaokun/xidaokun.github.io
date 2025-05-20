@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>OS Develop 1 - xidaokun</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="xidaokun">
+    <meta property="og:title" content="OS Develop 1"/>
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>xidaokun</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                
+            </div>
+        </div>
+        
+            <a target="_blank" rel="noopener" href="https://github.com/xidaokun">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>OS Develop 1</h2>
+            <div class="post-meta">
+                <time class="date">2022.03.17</time>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <blockquote>这篇文章上次修改于 1161 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
+        
+            <h3 id="。。。"><a href="#。。。" class="headerlink" title="。。。"></a>。。。</h3><p>操作系统是由一堆概念建立起来的管理体系。</p>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>本章对操作系统开发，涉及的概念做简单讨论，更深入的见后续。</p>
+<h3 id="CPU工作方式"><a href="#CPU工作方式" class="headerlink" title="CPU工作方式"></a>CPU工作方式</h3><p>CPU大体分为3部分：控制单元、运算单元和存储单元。</p>
+<img src="/2022/03/17/OS-Develop-1/cpu_workflow.png" class="" title="cpu workflow">
+
+
+<h3 id="X86、X64、X86-64、IA-32和IA-64"><a href="#X86、X64、X86-64、IA-32和IA-64" class="headerlink" title="X86、X64、X86-64、IA-32和IA-64"></a>X86、X64、X86-64、IA-32和IA-64</h3><ul>
+<li><p><strong>X86</strong>：这是一种指令集架构家族，最初由英特尔开发。它基于英特尔8086微处理器及其8088变体。8086于1978年推出，作为英特尔8位8080微处理器的完全16位扩展。</p>
+</li>
+<li><p><strong>X64</strong>：这是一个通用术语，指的是x86指令集的64位扩展。它最初由AMD使用，名为AMD64，后来由英特尔实施，名为Intel64。</p>
+</li>
+<li><p><strong>X86-64</strong>：这是x64和AMD64的另一个名称，表示x86指令集的64位扩展。它支持比其前身可能的虚拟内存和物理内存的大量增加，使程序能够在内存中存储更大量的数据。</p>
+</li>
+<li><p><strong>IA-32</strong>：这是x86指令集的一个版本，支持32位计算。它于1985年由英特尔引入，尽管基于30多年前的设计，但它仍然是今天销售的大多数台式机和笔记本电脑的基础。</p>
+</li>
+<li><p><strong>IA-64</strong>：这是一种64位指令集架构，由英特尔开发并于2001年引入，配备了用于企业和高性能计算的Itanium处理器。它与x86架构不向后兼容。</p>
+</li>
+</ul>
+<h3 id="x86寄存器简介"><a href="#x86寄存器简介" class="headerlink" title="x86寄存器简介"></a>x86寄存器简介</h3><p>1，通用寄存器<br>通用寄存器可以有多种用途，可以同来保存任何数据；虽说通用，但还是约定了它们的惯用法，比如一般情况下，将cx寄存器用作循环的次数控制，bx用于存储起始地址，这是约定俗成的东西。</p>
+<img src="/2022/03/17/OS-Develop-1/common_registor.png" class="" title="tools shwo">
+
+<p>2，段寄存器<br>x86的段寄存器有6个—-CS&#x2F;DS&#x2F;ES&#x2F;SS&#x2F;FS&#x2F;GS，均为16位。<br>CS：存储代码段的段选择子，代码段保存正在执行的指令。处理器从代码段读取指令时，CS中的段选择子与EIP的值(要执行的下一条指令在代码段中的偏移量)组成逻辑地址。<br>DS：数据段寄存器。<br>SS：堆栈段寄存器。<br>ES，FS和GS：给操作系统用的，不用操作系统，用途不一样。</p>
+<p>3，状态寄存器<br>16位模式下，标志寄存器名称为FLAG，寄存器大小16位。<br>32位模式下，标志寄存器的名称为EFLAG，寄存器大小32位。<br>64位模式下，为RFLAG，寄存器大小64位。</p>
+<p>它的主要作用包括：</p>
+<ul>
+<li>存储相关指令执行后的结果，例如CF、PF、AF、ZF、OF标志位</li>
+<li>执行相关指令时，提供行为依据，例如执行JE指令时会读取ZF的值，来决定是否进行跳转。</li>
+<li>控制CPU的工作方式，例如IF、VM、TF等标志位。</li>
+</ul>
+<p>状态寄存器的各位作用：</p>
+<img src="/2022/03/17/OS-Develop-1/flag_registor.png" class="" title="flag registor">
+
+
+<p>4，控制寄存器<br>控制寄存器决定处理器的操作模式当前执行任务的特性，比如实时模式和保护模式。</p>
+<img src="/2022/03/17/OS-Develop-1/control_registor.jpeg" class="" title="flag registor">
+
+
+<h3 id="内存寻址方式"><a href="#内存寻址方式" class="headerlink" title="内存寻址方式"></a>内存寻址方式</h3><p>分为三大类：</p>
+<ul>
+<li>寄存器寻址</li>
+<li>立即数寻址</li>
+<li>内存寻址</li>
+</ul>
+<p>内存寻址用分为：</p>
+<ul>
+<li>直接寻址</li>
+<li>基址寻址</li>
+<li>变址寻址</li>
+<li>机址变址寻址</li>
+</ul>
+<h3 id="段寄存器和总线"><a href="#段寄存器和总线" class="headerlink" title="段寄存器和总线"></a>段寄存器和总线</h3><p>数据总线，它的宽度决定数据交换速度。<br>控制总线，它的宽度决定可以控制的外设数量。<br>地址总线，它决定了内存寻址范围。</p>
+<p>段寄存器产生是由于数据总线和地址总线宽度不一致；数据总线宽度，也就是ALU宽度，也是我们常说的16位和32位CPU（也是寄存器的宽度），比如32位的CPU地址总线可以是32位，也可以是36位。</p>
+<p>早期，Intel决定让8086访问地址空间为1M，也就是地址总线为20位，但此时数据总线是16位，地址总线宽度大于数据总线，Intel想了一个办法，它加了4个16位的段寄存器(CS,DS,ES,SS)，它们存储的是地址总线高16位的段基址，原来的16地址就变成了段内的偏移量，这样就可以访问到1M内存了。</p>
+<h3 id="MMIO和PMIO"><a href="#MMIO和PMIO" class="headerlink" title="MMIO和PMIO"></a>MMIO和PMIO</h3><ul>
+<li><p>MMIO<br>内存映射方式（并不是映射到主板插的内存条上，是总线访问的内存地址）。</p>
+</li>
+<li><p>PMIO<br>通过寄存器端口访问。</p>
+</li>
+</ul>
+<h3 id="实时模式和保护模式"><a href="#实时模式和保护模式" class="headerlink" title="实时模式和保护模式"></a>实时模式和保护模式</h3><ul>
+<li><p>8086 具有 16 位的段寄存器、指令指针寄存器和通用寄存器（CS、SS、DS、ES、IP、AX、BX、CX、DX、SI、DI、BP、SP），因此，我们称它为 16 位的处理器。尽管它可以访问 1MB 的内存，但是只能分段进行，而且由于只能使用 16 位的段内偏移量，故段的长度最大只能是 64KB。8086 只有一种工作模式，即实模式；当然，这个名称是后来才提出来的。</p>
+</li>
+<li><p>80286 也是一款 16 位的处理器，大部分的寄存器都和 8086 处理器一样。因此，80286 和 8086 一样，因为段寄存器是 16 位的，而且只能使用 16 位的偏移地址，在实模式下只能使用 64KB 的段；尽管它有 24 根地址线，理论上可以访问 2^24，即 16MB 的内存,但依然只能分成多个段来进行。但是，80286 和 8086 不一样的地方在于，它第一次提出了保护模式的概念。在保护模式下，段寄存器中保存的不再是段地址，而是段选择子，真正的段地址位于段寄存器的描述符高速缓存中，是 24 位的。因此，运行在保护模式下的 80286 处理器可以访问全部 16MB 内存。由于 80286 的通用寄存器是 16 位的，只能提供 16 位的偏移地址，因此，和 8086 一样，即使是运行在保护模式下，段的长度依然不能超过 64KB。对段长度的限制妨碍了 80286 处理器的应用，这就是 16 位保护模式很少为人所知的原因。</p>
+</li>
+<li><p>1985 年的 80386 处理器是 Intel 公司的第一款 32 位产品，而且获得了极大成功，是后续所有 32 位产品的基础。和 8086&#x2F;80286 不同，80386 处理器的寄存器是 32 位的，而且拥有 32 根地址线，可以访问 2^32，即 4GB 的内存。80386以及所有后续的 32 位处理器，都兼容实模式，可以运行实模式下的 8086 程序。而且，在刚加电时，这些处理器都自动处于实模式下，此时，它相当于一个非常快速的 8086 处理器。只有在进行一番设置之后，才能运行在保护模式下。在保护模式下，所有的 32 位处理器都可以访问多达 4GB 的内存，它们可以工作在分段模型下，每个段的基地址是 32 位的，段内偏移量也是 32 位的，因此，段的长度不受限制。在最典型的情况下，可以将整个 4GB 内存定义成一个段来处理，这就是所谓的平坦模式。在平坦模式下，可以执行 4GB 范围内的控制转移，也可以使用 32 位的偏移量访问任何 4GB 范围内的任何位置。32 位保护模式兼容 80286 的 16 位保护模式。</p>
+</li>
+</ul>
+<h3 id="实时模式内存布局"><a href="#实时模式内存布局" class="headerlink" title="实时模式内存布局"></a>实时模式内存布局</h3><p><img src="/images/real_time_mm.png"></p>
+<h3 id="虚拟地址空间"><a href="#虚拟地址空间" class="headerlink" title="虚拟地址空间"></a>虚拟地址空间</h3><p>1，虚拟地址空间的大小是怎么决定的<br>X86_64体系结构的CPU工作在Long Mode（64位模式）时，虚拟地址的宽度是64位，但是当前的实现都不允许使用2^64字节（16EB）的整个地址空间。在可预见的未来，大多数操作系统和应用程序不需要这么大的地址空间，因此实现如此宽的虚拟地址只会增加地址转换的复杂性和成本，而没有真正的好处。因此，AMD决定在该体系结构的第一个实现中，实际只将虚拟地址的最低有效48位用于地址转换（页表查找）中。</p>
+<p>2，小内存如何应对大虚拟地址空间<br>物理内存的大小和虚拟地址空间的大小是完全没关系的，虚拟地址空间虽大，但虚拟地址空间的虚拟地址主要用于页表转换，页表能顺利转换的前提是要完成页表填充，页表填充又发生在缺页异常处理中，缺页异常填充页表时首先要向伙伴系统申请内存，而伙伴系统分配的内存都是从物理内存中划分出来的，物理内存的大小决定了它能分配的page数。所以物理内存的大小和虚拟地址空间的大小是没有直接对应关系的。</p>
+<h3 id="全局描述符表（GDT）"><a href="#全局描述符表（GDT）" class="headerlink" title="全局描述符表（GDT）"></a>全局描述符表（GDT）</h3><p>它是由段描述符构成的表。<br>段描述符用来描述内存段的属性，它占连续的8个字节。</p>
+<img src="/2022/03/17/OS-Develop-1/gdt.png" class="" title="gdt">
+
+<ul>
+<li>G-为0表示“段界限”的单位是字节，为1表示单位为4K。</li>
+<li>D&#x2F;B-用来指定段内偏移地址和操作数的大小；对于代码段来说，此位是D，为0表示是16位，为1表示32为；对于栈段来说，此为使B，若为0则使用的是16位的sp寄存器，若为1则使用的32位的esp寄存器。</li>
+<li>L-为1表示64代码段，为0表示32位代码段。</li>
+<li>AVL-操作系统可以随意使用，没有具体功能。</li>
+<li>P-为1表示段存在于内存中（如内存不足时，置换到磁盘），0表示在内存中。</li>
+<li>DPL-Descriptor Privilege Level，用来表示段的特权级；分别是 0、1、2、3 级特权，数字越小，特权级越大。</li>
+<li>S和TYPE-S为0表示系统段，为1表示内存段，在S不同值下，用通过TYPE来区分具体的段类型。</li>
+</ul>
+<h3 id="选择子-selector"><a href="#选择子-selector" class="headerlink" title="选择子(selector)"></a>选择子(selector)</h3><p>在保护模式下，段寄存器中保存的不再是段基址了，里面保存的内容叫“选择子(selector)”；选择子就像数组下标一样用这个数来索引全局描述符表中的段描述符，把全局描述符表当成数组。</p>
+<h3 id="A20"><a href="#A20" class="headerlink" title="A20"></a>A20</h3><p>实模式下内存访问是采取“段基址：段内偏移地址”的形式，段基址要乘以16后再加上段内偏移地址。 实模式下寄存器都是16位的，如果段基址和段内偏移地址都为16位的最大值，即0xFFFF：0xFFFF，最大地址是 0xFFFF0+0xFFFF，即0x10FFEF。由于实模式下的地址线是20位，最大寻址空间是1MB，即0x00000～0xFFFFF。超出1MB内存的部分在逻辑上也是正常的，但物理内存中却没有与之对应的部分。为了让“段基址：段内偏移地址”访问策略继续可用，CPU采取的做法是将超过1MB的部分自动回绕到0地址。超过1MB多余出来的内存被称为高端内存区HMA。对于只有20位地址线的CPU，不需要任何额外操作便能自动实现地址回绕。</p>
+<p>CPU发展到了80286后，虽然地址总线从原来的20位发展到了24位，从而能够访问的内存范围可达到2的24次方，即16MB。但任何时候，Intel都会把兼容放在第一位。80286是第一款具有保护模式的CPU，它在实模式下时，其表现也应该和8086&#x2F;8088一模一样。按照兼容的要求，80286及后续CPU的实模式应该与8086&#x2F;8088完全一样，即仍然只使用其中的20条地址线。</p>
+<p>在保护模式下，我们要使用80286的24条地址线，如果访问0x100000～0x10FFEF之间的内存，系统将直接访问这块物理内存，并不会像8086&#x2F;8088那样回绕到 0。 IBM设计了A20Gate来控制是否20位回环。 </p>
+<p>如果A20Gate被打开，当访问到0x100000～0x10FFEF之间的地址时，CPU将真正访问这块物理内存。如果A20 Gate被禁止，当访问0x100000～0x10FFEF之间的地址时，CPU 将采用8086&#x2F;8088的地址回绕。</p>
+<h3 id="开启保护模式"><a href="#开启保护模式" class="headerlink" title="开启保护模式"></a>开启保护模式</h3><ul>
+<li>配置GDT</li>
+<li>打开A20</li>
+<li>将CR0的pe置为1</li>
+</ul>
+<h3 id="流水线"><a href="#流水线" class="headerlink" title="流水线"></a>流水线</h3><p>为了提高CPU执行效率，将每一步操作就绪划分成粒度更细的微的操作，然后将这些微操作放到多级流水线上同时去执行。</p>
+<h3 id="开启分页机制"><a href="#开启分页机制" class="headerlink" title="开启分页机制"></a>开启分页机制</h3><ul>
+<li>准备好页目录表和页表</li>
+<li>将页表地址写入控制寄存器cr3</li>
+<li>寄存器cr0的PG位置1</li>
+</ul>
+<h3 id="为啥要多级分页"><a href="#为啥要多级分页" class="headerlink" title="为啥要多级分页"></a>为啥要多级分页</h3><p>每当进程创建时，操作系统都会为进程分配页表，整个操作系统并非只有一个页表。<br>在32操作系统中，每个页为4K，每个页表项为4B，虚拟地址空间为4G（2的32次方），那么页表的大小就为4M，当进程创建时，如果单级页表的话，那就要将页表内容全部创建出来，那么每个进程都要4M的页表内存空间，那内存消耗时巨大的。如果是多级页表就可以按需分配。</p>
+<h3 id="操作系统和用户进程"><a href="#操作系统和用户进程" class="headerlink" title="操作系统和用户进程"></a>操作系统和用户进程</h3><p>用户进程必须运行在低特权级，当用户进程访问资源时，需要向操作系统申请，操作系统去操作，然后将结果返回给用户进程，进程可以有无限多个，而操作系统是所有用户进程共享的。可以把操作系统看作服务端，用户进程看作客户端。</p>
+<h3 id="进程和线程区别"><a href="#进程和线程区别" class="headerlink" title="进程和线程区别"></a>进程和线程区别</h3><p>1，进程拥有自己的地址空间，线程没有自己的地址空间，但有自己的寄存器映像和栈(见thread_struct)。<br>2，线程依赖进程的地址空间资源，进程至少有一个线程(执行流)。</p>
+<h3 id="进程切换"><a href="#进程切换" class="headerlink" title="进程切换"></a>进程切换</h3><p>进程切换的本质是保存旧进程的硬件上下文，刷新新进程的硬件上下文。</p>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2022/03/22/OS-Develop-2/">OS Develop 2</a></li>
+                
+                
+                    <li>下一篇: <a href="/2022/03/11/My-Desktop-tools/">My Desktop tools</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/IT-Basics/" rel="tag">IT-Basics</a><a class="-none-link" href="/tags/OS/" rel="tag">OS</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://avatars.githubusercontent.com/u/11327150?v=4" alt="xidaokun" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>xidaokun</h4>
+                <p>本站未注明转载的文章均为原创，并采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow">CC BY-NC-SA 4.0</a> 授权协议，<span style="color: #E91E63">转载请注明来源</span>，谢谢。</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-04/">Blutooth-04</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-03/">Blutooth-03</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-02/">Blutooth-02</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-01/">Blutooth-01</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/07/Blockchain-1/">Blockchain-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/03/06/LLM1/">LLM 研究(1)</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Algorithm/" style="font-size: 16.67px;">Algorithm</a> <a href="/tags/Android/" style="font-size: 11.67px;">Android</a> <a href="/tags/Application-Android/" style="font-size: 10px;">Application Android</a> <a href="/tags/Application-Backend/" style="font-size: 11.67px;">Application Backend</a> <a href="/tags/Architecture/" style="font-size: 11.67px;">Architecture</a> <a href="/tags/Architecture-Car/" style="font-size: 10px;">Architecture Car</a> <a href="/tags/Blutooth/" style="font-size: 15px;">Blutooth</a> <a href="/tags/IT-Basics/" style="font-size: 20px;">IT-Basics</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/OS/" style="font-size: 18.33px;">OS</a> <a href="/tags/Security/" style="font-size: 13.33px;">Security</a> <a href="/tags/Tool/" style="font-size: 11.67px;">Tool</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2025 <a href="/">xidaokun</a>. All Rights Reserved</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

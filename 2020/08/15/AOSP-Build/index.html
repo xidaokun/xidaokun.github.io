@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>AOSP Build - xidaokun</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="xidaokun">
+    <meta property="og:title" content="AOSP Build"/>
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>xidaokun</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                
+            </div>
+        </div>
+        
+            <a target="_blank" rel="noopener" href="https://github.com/xidaokun">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>AOSP Build</h2>
+            <div class="post-meta">
+                <time class="date">2020.08.15</time>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <blockquote>这篇文章上次修改于 1740 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
+        
+            <h3 id="安装Repo"><a href="#安装Repo" class="headerlink" title="安装Repo"></a>安装Repo</h3><p>1，下载</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$</span><span class="language-bash"><span class="hljs-built_in">mkdir</span> ~/bin</span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">PATH=~/bin:<span class="hljs-variable">$PATH</span></span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">curl https://storage.googleapis.com/git-repo-downloads/repo &gt; ~/bin/repo</span><br><span class="hljs-meta prompt_">$</span><span class="language-bash"><span class="hljs-built_in">chmod</span> a+x ~/bin/repo</span><br></code></pre></td></tr></table></figure>
+
+<p>2，将repo url改为国内镜像url<br>将REPO_URL &#x3D; ‘<a target="_blank" rel="noopener" href="https://gerrit.googlesource.com/git-repo'%EF%BC%8C%E6%94%B9%E4%B8%BA">https://gerrit.googlesource.com/git-repo&#39;，改为</a><br>REPO_URL &#x3D; ‘<a target="_blank" rel="noopener" href="https://aosp.tuna.tsinghua.edu.cn/android/git-repo">https://aosp.tuna.tsinghua.edu.cn/android/git-repo</a>‘</p>
+<h3 id="检出分支"><a href="#检出分支" class="headerlink" title="检出分支"></a>检出分支</h3><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk"><span class="hljs-variable">$mkdir</span> AOSP<br><span class="hljs-variable">$cd</span> AOSP<br><span class="hljs-variable">$repo</span> init -u https:<span class="hljs-regexp">//</span>aosp.tuna.tsinghua.edu.cn<span class="hljs-regexp">/android/</span>platform/manifest<br><span class="hljs-variable">$repo</span> init -u https:<span class="hljs-regexp">//</span>aosp.tuna.tsinghua.edu.cn<span class="hljs-regexp">/android/</span>platform/manifest -b android-<span class="hljs-number">9.0</span>.<span class="hljs-number">0</span>_r18<br></code></pre></td></tr></table></figure>
+
+<h3 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-variable">$repo</span> <span class="hljs-built_in">sync</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="安装jdk"><a href="#安装jdk" class="headerlink" title="安装jdk"></a>安装jdk</h3><figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros"><span class="hljs-variable">$sudo</span> apt-<span class="hljs-built_in">get</span> install openjdk-8-jdk<br></code></pre></td></tr></table></figure>
+
+<h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros"><span class="hljs-variable">$sudo</span> apt-<span class="hljs-built_in">get</span> install -y git flex bison gperf build-essential libncurses5-dev:i386<br><span class="hljs-variable">$sudo</span> apt-<span class="hljs-built_in">get</span> install libx11-dev:i386 libreadline6-dev:i386 libgl1-mesa-dev g++-multilib<br><span class="hljs-variable">$sudo</span> apt-<span class="hljs-built_in">get</span> install tofrodos python-markdown libxml2-utils xsltproc zlib1g-dev:i386<br><span class="hljs-variable">$sudo</span> apt-<span class="hljs-built_in">get</span> install zip curl zlib1g-dev gcc-multilib g++-multilib<br><span class="hljs-variable">$sudo</span> apt-<span class="hljs-built_in">get</span> install lib32ncurses5-dev x11proto-core-dev libx11-dev <br><span class="hljs-variable">$sudo</span> apt-<span class="hljs-built_in">get</span> install lib32z-dev ccache<br></code></pre></td></tr></table></figure>
+
+<h3 id="配置ccache"><a href="#配置ccache" class="headerlink" title="配置ccache"></a>配置ccache</h3><figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$</span><span class="language-bash"><span class="hljs-built_in">export</span> USE_CCACHE=1  (在你home主目录的.bashrc中加入)</span><br><span class="hljs-meta prompt_">$</span><span class="language-bash"><span class="hljs-built_in">export</span> CCACHE_DIR=/home/ubuntu/.ccache  (指定一个缓存目录，也可以不指定，默认目录为你当前用户目录下的.ccache)</span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">prebuilts/misc/linux-x86/ccache/ccache -M 50G （这个命令在Android源码中，缓存大小按照自己的硬盘来适当调整）</span><br><span class="hljs-meta prompt_">$</span><span class="language-bash"><span class="hljs-built_in">source</span> ~/.bashrc  （<span class="hljs-built_in">source</span>命令使修改立即生效）</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><figure class="highlight gams"><table><tr><td class="code"><pre><code class="hljs gams"><span class="hljs-comment">//向shell脚本中写入环境变量</span><br><span class="hljs-meta"><span class="hljs-keyword">$source</span> build/envsetup.sh</span><br><span class="hljs-comment">// 选择构建目标</span><br><span class="hljs-meta"><span class="hljs-keyword">$lunch</span> (lunch选定的版本按照实际情况来)</span><br><span class="hljs-comment">// 开始编译</span><br><span class="hljs-meta"><span class="hljs-keyword">$make</span> -j16  （和cpu有关，适当调整数字）</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="启动模拟器"><a href="#启动模拟器" class="headerlink" title="启动模拟器"></a>启动模拟器</h3><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>在编译完成后可以直接运行，若关闭了终端, 或重新加载了环境, 则有可能导致执行错误,建议执行前确认是否已经执行<br><span class="hljs-regexp">//</span>source .<span class="hljs-regexp">/build/</span>envsetup.sh<br><span class="hljs-regexp">//</span>lunch xxxx<br>$ emulator<br></code></pre></td></tr></table></figure>
+
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><p>1，prebuilts&#x2F;clang&#x2F;host&#x2F;linux-x86&#x2F;clang-3289846&#x2F;bin&#x2F;clang.real: error while loading shared libraries: libncurses.so.5: cannot open shared object file: No such file or directory</p>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><code class="hljs 1c"><span class="hljs-comment">//安装依赖库</span><br>sudo apt install libncurses5<br></code></pre></td></tr></table></figure>
+
+
+<p>2，解决python版本问题</p>
+<figure class="highlight sqf"><table><tr><td class="code"><pre><code class="hljs sqf"><span class="hljs-comment">//安装python2.7</span><br>sudo apt-<span class="hljs-built_in">get</span> install python2-minimal<br><span class="hljs-comment">// 重置软连接</span><br>sudo <span class="hljs-built_in">ln</span> -s /usr/bin/python2.<span class="hljs-number">7</span> python<br></code></pre></td></tr></table></figure>
+
+<p>3，[  2% 1921&#x2F;83098] Lex: checkpolicy &lt;&#x3D; external&#x2F;selinux&#x2F;checkpolicy&#x2F;policy_scan.l<br>FAILED: out&#x2F;host&#x2F;linux-x86&#x2F;obj&#x2F;EXECUTABLES&#x2F;checkpolicy_intermediates&#x2F;policy_scan.c<br>&#x2F;bin&#x2F;bash -c “prebuilts&#x2F;misc&#x2F;linux-x86&#x2F;flex&#x2F;flex-2.5.39 -oout&#x2F;host&#x2F;linux-x86&#x2F;obj&#x2F;EXECUTABLES&#x2F;checkpolicy_intermediates&#x2F;policy_scan.c external&#x2F;selinux&#x2F;checkpolicy&#x2F;policy_scan.l”<br>flex-2.5.39: loadlocale.c:130: _nl_intern_locale_data: Assertion &#96;cnt &lt; (sizeof (_nl_value_type_LC_TIME) &#x2F; sizeof (_nl_value_type_LC_TIME[0]))’ failed.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">//重新编译flex<br><span class="hljs-built_in">cd</span> prebuilts/misc/linux-x86/flex<br><span class="hljs-built_in">rm</span> flex-2.5.39<br>tar zxf flex-2.5.39.tar.gz<br><span class="hljs-built_in">cd</span> flex-2.5.39<br>./configure<br>make<br><span class="hljs-built_in">mv</span> flex ../<br><span class="hljs-built_in">cd</span> ../<br><span class="hljs-built_in">rm</span> -rf flex-2.5.39<br><span class="hljs-built_in">mv</span> flex flex-2.5.39<br></code></pre></td></tr></table></figure>
+
+<p>4，android p build failing - apache-xml_intermediates - hiddenapi</p>
+<figure class="highlight crystal"><table><tr><td class="code"><pre><code class="hljs crystal"><span class="hljs-variable">$ </span>make clean-ims-common<br><span class="hljs-variable">$ </span>make ims-common<br><span class="hljs-variable">$ </span>make apache-xml<br><span class="hljs-variable">$ </span>make -j12<br></code></pre></td></tr></table></figure>
+
+<p>5，Try increasing heap size with java option ‘-Xmx<size>‘</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$</span><span class="language-bash"><span class="hljs-built_in">export</span> JACK_SERVER_VM_ARGUMENTS=<span class="hljs-string">&quot;-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4g&quot;</span></span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">./prebuilts/sdk/tools/jack-admin kill-server</span><br><span class="hljs-meta prompt_">$</span><span class="language-bash">./prebuilts/sdk/tools/jack-admin start-server</span><br></code></pre></td></tr></table></figure>
+
+<p>6，make sdk<br>SDK: warning: including GNU target out&#x2F;target&#x2F;product&#x2F;generic&#x2F;system&#x2F;lib&#x2F;libext2fs.so SDK: warning: including GNU target out&#x2F;target&#x2F;product&#x2F;generic&#x2F;system&#x2F;lib&#x2F;libiprouteutil.so</p>
+<p>SDK: warning: including GNU target out&#x2F;target&#x2F;product&#x2F;generic&#x2F;system&#x2F;lib&#x2F;libmicrohttpd.so</p>
+<p>SDK: warning: including GNU target out&#x2F;target&#x2F;product&#x2F;generic&#x2F;system&#x2F;lib&#x2F;libnetlink.so</p>
+<p>SDK: warning: including GNU target out&#x2F;target&#x2F;product&#x2F;generic&#x2F;system&#x2F;lib&#x2F;libnl.so</p>
+<p>SDK: warning: including GNU target out&#x2F;target&#x2F;product&#x2F;generic&#x2F;system&#x2F;lib&#x2F;libxmlrpc++.so</p>
+<p>SDK: warning: including GNU target out&#x2F;target&#x2F;product&#x2F;generic&#x2F;system&#x2F;xbin&#x2F;fio</p>
+<p>SDK: warning: including GNU target out&#x2F;target&#x2F;product&#x2F;generic&#x2F;system&#x2F;xbin&#x2F;mmc_utils</p>
+<p>development&#x2F;build&#x2F;sdk.atree:49: couldn’t locate source file: bin&#x2F;etc1tool</p>
+<p>development&#x2F;build&#x2F;sdk.atree:83: couldn’t locate source file: bin&#x2F;split-select</p>
+<p>development&#x2F;build&#x2F;sdk.atree:88: couldn’t locate source file: bin&#x2F;bcc_compat</p>
+<p>development&#x2F;build&#x2F;sdk.atree:203: couldn’t locate source file: framework&#x2F;layoutlib.jar</p>
+<p>development&#x2F;build&#x2F;sdk.atree:588: couldn’t locate source file: framework&#x2F;layoutlib-tests.jar</p>
+<p>development&#x2F;build&#x2F;sdk.atree:589: couldn’t locate source file: system&#x2F;app&#x2F;EmulatorSmokeTests&#x2F;EmulatorSmokeTests.apk</p>
+<p>ninja: build stopped: subcommand failed.</p>
+<p>make: *** [ninja_wrapper] Error 1</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><code class="hljs gradle">注释以上development<span class="hljs-regexp">/build/</span>sdk.atree 中的 <span class="hljs-number">49</span> <span class="hljs-number">83</span> <span class="hljs-number">88</span> <span class="hljs-number">203</span> <span class="hljs-number">586</span> <span class="hljs-number">589</span>行的内容   再次make sdk<br>编译成功，在相关目录下生成以下的文件:<br><span class="hljs-keyword">Package</span> SDK: out<span class="hljs-regexp">/host/</span>linux-x86<span class="hljs-regexp">/sdk/</span>aosp_arm/android-sdk_eng.builder_linux-x86.zip<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2020/08/16/Kernel-Build/">Kernel Build</a></li>
+                
+                
+                    <li>下一篇: <a href="/2019/08/23/SELinux/">SELinux</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Android/" rel="tag">Android</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://avatars.githubusercontent.com/u/11327150?v=4" alt="xidaokun" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>xidaokun</h4>
+                <p>本站未注明转载的文章均为原创，并采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow">CC BY-NC-SA 4.0</a> 授权协议，<span style="color: #E91E63">转载请注明来源</span>，谢谢。</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-04/">Blutooth-04</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-03/">Blutooth-03</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-02/">Blutooth-02</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-01/">Blutooth-01</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/07/Blockchain-1/">Blockchain-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/03/06/LLM1/">LLM 研究(1)</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Algorithm/" style="font-size: 16.67px;">Algorithm</a> <a href="/tags/Android/" style="font-size: 11.67px;">Android</a> <a href="/tags/Application-Android/" style="font-size: 10px;">Application Android</a> <a href="/tags/Application-Backend/" style="font-size: 11.67px;">Application Backend</a> <a href="/tags/Architecture/" style="font-size: 11.67px;">Architecture</a> <a href="/tags/Architecture-Car/" style="font-size: 10px;">Architecture Car</a> <a href="/tags/Blutooth/" style="font-size: 15px;">Blutooth</a> <a href="/tags/IT-Basics/" style="font-size: 20px;">IT-Basics</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/OS/" style="font-size: 18.33px;">OS</a> <a href="/tags/Security/" style="font-size: 13.33px;">Security</a> <a href="/tags/Tool/" style="font-size: 11.67px;">Tool</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2025 <a href="/">xidaokun</a>. All Rights Reserved</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

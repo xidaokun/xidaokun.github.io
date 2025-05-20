@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>OS Develop 3 - xidaokun</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="xidaokun">
+    <meta property="og:title" content="OS Develop 3"/>
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>xidaokun</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                
+            </div>
+        </div>
+        
+            <a target="_blank" rel="noopener" href="https://github.com/xidaokun">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>OS Develop 3</h2>
+            <div class="post-meta">
+                <time class="date">2022.03.28</time>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <blockquote>这篇文章上次修改于 1149 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
+        
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>本章讨论BIOS：Base Input &amp; Output System，基本输入输出系统。(顺带点DOS)</p>
+<h3 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h3><p>BIOS是计算机上第一个运行的软件，它存放在只读存储器ROM上。开机后，CPU的cs:ip寄存器被强制初始化为0xF000:0xFFF0，此地址便是BIOS的入口地址，BIOS是在实模式下运行的。</p>
+<h3 id="BIOS和DOS"><a href="#BIOS和DOS" class="headerlink" title="BIOS和DOS"></a>BIOS和DOS</h3><p>系统板的ROM中存放着一套程序，称为BIOS基本输入输出系统。BIOS最主要功能是基于中断向量表，创建中断例程，中断例程提供了对硬件访问的方法。BIOS中主要包含几下部分内容：</p>
+<ul>
+<li>硬件系统的检测和初始化程序；  </li>
+<li>外部中断(后面讲解)和内部中断的中断例程；  </li>
+<li>用于对硬件设备进行 I&#x2F;O操作的中断例程；  </li>
+<li>其他和硬件系统相关的中断例程.</li>
+<li>交接给MBR</li>
+</ul>
+<p>操作系统DOS也提供了中断例程，从操作系统的角度来看，DOS的中断例程就是操作系统向程序员提供的编程资源。BIOS和DOS在所提供了中断例程中包含了许多子程序，这些子程序实现了程序员在编程时经常需要用到的功能。程序员在编程时，可以用int指令直接调用BIOS和DOS提供的中断例程，来完成某些工作和硬件设备相关的DOS中断例程中，一般都调用了BIOS的中断例程。</p>
+<h3 id="BIOS和外设"><a href="#BIOS和外设" class="headerlink" title="BIOS和外设"></a>BIOS和外设</h3><p>BIOS中断例程访问外设，依赖外设ROM上的初始化代码和功能调用接口。访问方式有两种：</p>
+<ul>
+<li><p>MMIO<br>在MMIO中，内存和I&#x2F;O设备共享同一个地址空间。 MMIO是应用得最为广泛的一种IO方法，它使用相同的地址总线来处理内存和I&#x2F;O设备，I&#x2F;O设备的内存和寄存器被映射到与之相关联的地址。当CPU访问某个内存地址时，它可能是物理内存，也可以是某个I&#x2F;O设备的内存。因此，用于访问内存的CPU指令也可来访问I&#x2F;O设备。每个I&#x2F;O设备监视CPU的地址总线，一旦CPU访问分配给它的地址，它就做出响应，将数据总线连接到需要访问的设备硬件寄存器。为了容纳I&#x2F;O设备，CPU必须预留给I&#x2F;O一个地址区域，该地址区域不能给物理内存使用。</p>
+</li>
+<li><p>PMIO<br>在PMIO中，内存和I&#x2F;O设备有各自的地址空间。 端口映射I&#x2F;O通常使用一种特殊的CPU指令，专门执行I&#x2F;O操作。在Intel的微处理器中，使用的指令是IN和OUT。这些指令可以读&#x2F;写1,2,4个字节(例如：outb, outw, outl)从&#x2F;到IO设备上。I&#x2F;O设备有一个与内存不同的地址空间，为了实现地址空间的隔离，要么在CPU物理接口上增加一个I&#x2F;O引脚，要么增加一条专用的I&#x2F;O总线。由于I&#x2F;O地址空间与内存地址空间是隔离的，所以有时将PMIO称为被隔离的IO(Isolated I&#x2F;O)。</p>
+</li>
+</ul>
+<h3 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h3><p>中断指令(in)，中断号，中断向量表，中断例程(处理程序)。<br>中断向量表是CPU硬件原生支持的；中断例程是BIOS，DOS等创建的。</p>
+<h3 id="BIOS内存位置"><a href="#BIOS内存位置" class="headerlink" title="BIOS内存位置"></a>BIOS内存位置</h3><p><img src="/images/real_time_mm.png"></p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>BIOS最后一项工作是校验启动盘中0盘0道1扇区的内容，如果扇区最后分别是0x55和0xaa，BIOS则认为此扇区中存在MBR可执行程序，然后会将此扇区中的内容加载到物理地址0x7c00处，大小为512字节，随后跳转到给地址，执行该处的程序。</p>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2022/04/15/OS-Develop-4/">OS Develop 4</a></li>
+                
+                
+                    <li>下一篇: <a href="/2022/03/22/OS-Develop-2/">OS Develop 2</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/IT-Basics/" rel="tag">IT-Basics</a><a class="-none-link" href="/tags/OS/" rel="tag">OS</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://avatars.githubusercontent.com/u/11327150?v=4" alt="xidaokun" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>xidaokun</h4>
+                <p>本站未注明转载的文章均为原创，并采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow">CC BY-NC-SA 4.0</a> 授权协议，<span style="color: #E91E63">转载请注明来源</span>，谢谢。</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-04/">Blutooth-04</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-03/">Blutooth-03</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-02/">Blutooth-02</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-01/">Blutooth-01</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/07/Blockchain-1/">Blockchain-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/03/06/LLM1/">LLM 研究(1)</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Algorithm/" style="font-size: 16.67px;">Algorithm</a> <a href="/tags/Android/" style="font-size: 11.67px;">Android</a> <a href="/tags/Application-Android/" style="font-size: 10px;">Application Android</a> <a href="/tags/Application-Backend/" style="font-size: 11.67px;">Application Backend</a> <a href="/tags/Architecture/" style="font-size: 11.67px;">Architecture</a> <a href="/tags/Architecture-Car/" style="font-size: 10px;">Architecture Car</a> <a href="/tags/Blutooth/" style="font-size: 15px;">Blutooth</a> <a href="/tags/IT-Basics/" style="font-size: 20px;">IT-Basics</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/OS/" style="font-size: 18.33px;">OS</a> <a href="/tags/Security/" style="font-size: 13.33px;">Security</a> <a href="/tags/Tool/" style="font-size: 11.67px;">Tool</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2025 <a href="/">xidaokun</a>. All Rights Reserved</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>

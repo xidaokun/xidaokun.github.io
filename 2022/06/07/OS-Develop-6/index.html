@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>OS Develop 6 - xidaokun</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="xidaokun">
+    <meta property="og:title" content="OS Develop 6"/>
+    
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>xidaokun</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                
+            </div>
+        </div>
+        
+            <a target="_blank" rel="noopener" href="https://github.com/xidaokun">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>OS Develop 6</h2>
+            <div class="post-meta">
+                <time class="date">2022.06.07</time>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <blockquote>这篇文章上次修改于 1078 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
+        
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>本章讨论特权级。<br>将操作系统看作服务器，用户进程看作客户端，两者是不同的特权级，客户端向服务端请求资源时，要做权限检查，这就是特权级检查。</p>
+<h3 id="特权级切换"><a href="#特权级切换" class="headerlink" title="特权级切换"></a>特权级切换</h3><p>有了操作系统后，程序分为用户程序和内核程序，前者是3特权级，后者是0特权级，两者加起来程序运行才完整，也就是说一个完整的程序运行要经历特权级的切换。<br>1，由低到高<br>由中断门、调用门等手段实现由低到高。</p>
+<p>2，由高到低<br>通过中断返回，从高特权级切换到低特权级。</p>
+<p>注意：<br>1，用目标特权级的栈，保存当前特权级的栈信息，这里别绕晕了。<br>2，特权级的切换，本质上就是切换CS和EIP的值，执行不同RPL的代码段。</p>
+<h3 id="特权级栈地址"><a href="#特权级栈地址" class="headerlink" title="特权级栈地址"></a>特权级栈地址</h3><p>1，程序员完成用户程序，操作系统完成内核态程序。特权级切换时，还要切换数据，为了防止引用混乱，每个CPU的不同特权级有自己的特权级栈，每个任务的每个特权级只有一个栈。当特权级切换时，也要将栈寄存器更新为对应特权级的栈。<br>2，任务在切换特权级时，去哪里找不同特权级下的栈呢？不同特权级下的栈地址(首地址)，是存放在TSS中的，在创建进程时，会初始化TSS，到后面TSS中的栈信息就不会变了。<br>3，TSS和GDT类似，都需要程序员来填写，然后添加到TR寄存器中。之后特权级切换时，CPU会根据程序员填写的TSS内容，自动刷新对应寄存器的内容。<br>4，栈是保存切换前的特权级现场信息的，所以只有高特权级有栈，3特权级是最低的，TSS中并没有级该特权级下的栈地址。</p>
+<h3 id="DPL，RPL和CPL"><a href="#DPL，RPL和CPL" class="headerlink" title="DPL，RPL和CPL"></a>DPL，RPL和CPL</h3><ul>
+<li><p>CS中选择子的RPL代表指令的特权级(比如用户进程的指令特权级是3)，也是当前处理器所处的特权级，即CPL。</p>
+</li>
+<li><p>DPL是段的特权级，如果段是代码段，那它的DPL就是未来Selector中RPL，就是未来CPU的特权级。</p>
+</li>
+<li><p>除了加载用户程序，其他时候都是目标段的DPL装载到选择子的RPL，然后变成了CPL。</p>
+</li>
+</ul>
+<h3 id="特权级检查"><a href="#特权级检查" class="headerlink" title="特权级检查"></a>特权级检查</h3><p>操作系统中特权级的检查就是对DPL，CPL和RPL的大小关系检查。当访问者访问被防者的时候，就会做权限检查。</p>
+<h5 id="1，对于数据段"><a href="#1，对于数据段" class="headerlink" title="1，对于数据段"></a>1，对于数据段</h5><p>只有“RPL值&lt;&#x3D;DPL值”(即高特权级的指令，访问比它特权级低的数据)时，才允许访问。</p>
+<h5 id="2，对于代码段"><a href="#2，对于代码段" class="headerlink" title="2，对于代码段"></a>2，对于代码段</h5><p>情况1，“RPL值&#x3D;DPL值”时，才允许访问。也就是只能平级访问。<br>情况2，在使用门结构(中断门，调用门)时，可以从低特权级到高特权级。<br>情况3，当从中断程序返回到用户态时，是从高特权级到低特权级。</p>
+<p>中断发生后，CPU会暂停用户程序的执行，保存用户进程上下文，并跳转到0特权级，待中断处理程序执行完，就会回到用户进程继续执行。</p>
+<h5 id="3，通过门结构访问"><a href="#3，通过门结构访问" class="headerlink" title="3，通过门结构访问"></a>3，通过门结构访问</h5><p>门选择子，门结构描述符，内核例程代码段，内核例程。</p>
+<p>门结构是一段程序的内存段。任务门和调用门，在GDT中有门描述符来记录它的位置，因此可以用call和jmp指令直接调用。中断门和陷阱门仅存在IDT中，通过中断信号或int指令来触发。</p>
+<p>门描述符的DPL值&gt;&#x3D;CPL的值，CPL的值&lt;&#x3D;门内核例程的DPL值。就是当前处理器的特权级，大于门描述符的特权级，小于门程序所在代码段的特权级。</p>
+<p>通过门切换到高特权级：<br>1，首先调用门”call 门选择子”<br>2，通过门选择子在GDT中，找到门内核例程所在代码段的选择子和偏移量<br>3，最后通过内核例程代码段选择子和偏移量，找到例程在内存中的真实位置。</p>
+<p>可见门调用会有两次特权检查，一个是从门选择子到门描述符，另一个是从门描述符到门内核例程代码段。门调用要求访问者的RPL，在门描述符DPL和内核例程代码段DPL之间。</p>
+<p>通过retf切换到低特权级：<br>从低特权级切换到高特权级时，调用的call指令，因为是段间转移，CPU会将CS和EIP的值都备份到栈中。当执行retf指令时，CPU会将栈中的这两个值刷新回CS和EIP，这样就完成了由高到低的切换。</p>
+<h3 id="OS防止用户篡改RPL"><a href="#OS防止用户篡改RPL" class="headerlink" title="OS防止用户篡改RPL"></a>OS防止用户篡改RPL</h3><p>当用户程序请求时，OS会把用户提交选择子的RPL改为3。</p>
+<h3 id="IO硬件访问控制"><a href="#IO硬件访问控制" class="headerlink" title="IO硬件访问控制"></a>IO硬件访问控制</h3><p>IO硬件的访问是由eflags中的IOPL位和TSS中IO位图来决定的，两者指定访问指定IO所需要的最小特权级。只有当特权级大于等于这个最小特权级时，才允许访问。</p>
+<h3 id="自动复制"><a href="#自动复制" class="headerlink" title="自动复制"></a>自动复制</h3><p>为了方便软件开发人员，处理器在固件上实现特权级栈参数的自动复制；将用户进程压在3特权级栈中的参数自动复制到 0 特权级栈中。</p>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2022/07/18/OS-Develop-7/">OS Develop 7</a></li>
+                
+                
+                    <li>下一篇: <a href="/2022/04/23/OS-Develop-5/">OS Develop 5</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/IT-Basics/" rel="tag">IT-Basics</a><a class="-none-link" href="/tags/OS/" rel="tag">OS</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://avatars.githubusercontent.com/u/11327150?v=4" alt="xidaokun" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>xidaokun</h4>
+                <p>本站未注明转载的文章均为原创，并采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow">CC BY-NC-SA 4.0</a> 授权协议，<span style="color: #E91E63">转载请注明来源</span>，谢谢。</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-04/">Blutooth-04</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/20/Blutooth-03/">Blutooth-03</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-02/">Blutooth-02</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/14/Blutooth-01/">Blutooth-01</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/07/Blockchain-1/">Blockchain-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/03/06/LLM1/">LLM 研究(1)</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">June 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Algorithm/" style="font-size: 16.67px;">Algorithm</a> <a href="/tags/Android/" style="font-size: 11.67px;">Android</a> <a href="/tags/Application-Android/" style="font-size: 10px;">Application Android</a> <a href="/tags/Application-Backend/" style="font-size: 11.67px;">Application Backend</a> <a href="/tags/Architecture/" style="font-size: 11.67px;">Architecture</a> <a href="/tags/Architecture-Car/" style="font-size: 10px;">Architecture Car</a> <a href="/tags/Blutooth/" style="font-size: 15px;">Blutooth</a> <a href="/tags/IT-Basics/" style="font-size: 20px;">IT-Basics</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/LLM/" style="font-size: 10px;">LLM</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/OS/" style="font-size: 18.33px;">OS</a> <a href="/tags/Security/" style="font-size: 13.33px;">Security</a> <a href="/tags/Tool/" style="font-size: 11.67px;">Tool</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2025 <a href="/">xidaokun</a>. All Rights Reserved</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":true});</script>
+
+  </body>
+</html>
